@@ -490,6 +490,28 @@ if (isset($_POST['submit'])) {
                                     </button>
                                 </div>
                                 <div class="mt-3">
+                                    <div class="mb-2 d-flex flex-wrap gap-2">
+
+                                        <!-- Tools -->
+                                        <button type="button" class="btn btn-dark btn-sm" onclick="setTool('pen')">Pen</button>
+                                        <button type="button" class="btn btn-dark btn-sm" onclick="setTool('arrow')">Arrow</button>
+                                        <button type="button" class="btn btn-dark btn-sm" onclick="setTool('text')">Text</button>
+
+                                        <!-- Colors -->
+                                        <input type="color" onchange="setColor(this.value)" value="#ff0000">
+
+                                        <!-- Brush -->
+                                        <select onchange="setSize(this.value)" class="form-select form-select-sm w-auto">
+                                            <option value="2">Thin</option>
+                                            <option value="4">Medium</option>
+                                            <option value="8">Thick</option>
+                                        </select>
+
+                                        <!-- Actions -->
+                                        <button type="button" class="btn btn-secondary btn-sm" onclick="clearCanvas()">Clear</button>
+                                        <button type="button" class="btn btn-success btn-sm" onclick="saveCanvas()">Apply</button>
+
+                                    </div>
                                     <!-- Canvas Wrapper -->
                                     <div id="canvasWrapper" style="position: relative; display:none; max-width: 100%;">
                                         <img id="baseImage" src="" style="max-width:100%; border-radius:8px;">
@@ -580,9 +602,14 @@ if (isset($_POST['submit'])) {
             }
         }
 
+        //drawing
         let canvas = document.getElementById('drawingCanvas');
         let ctx = canvas.getContext('2d');
+
         let drawing = false;
+        let tool = "pen"; // pen | arrow | text
+        let brushSize = 2;
+        let brushColor = "red";
 
         function setupCanvas() {
             const img = document.getElementById('baseImage');
@@ -592,52 +619,133 @@ if (isset($_POST['submit'])) {
 
             canvas.style.width = img.clientWidth + "px";
             canvas.style.height = img.clientHeight + "px";
+
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
         }
 
-        function enableDraw() {
-            canvas.addEventListener('mousedown', () => drawing = true);
-            canvas.addEventListener('mouseup', () => drawing = false);
-            canvas.addEventListener('mousemove', draw);
+        // 🔥 UNIFIED POINTER EVENTS (mouse + touch + Apple Pencil)
+        canvas.addEventListener('pointerdown', startDraw);
+        canvas.addEventListener('pointermove', draw);
+        canvas.addEventListener('pointerup', endDraw);
+        canvas.addEventListener('pointerleave', endDraw);
+
+        let startX = 0;
+        let startY = 0;
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        function startDraw(e) {
+            const pos = getPos(e);
+            startX = pos.x;
+            startY = pos.y;
+
+            if (tool === "text") {
+                const text = prompt("Enter label:");
+                if (text) {
+                    ctx.fillStyle = brushColor;
+                    ctx.font = "16px Arial";
+                    ctx.fillText(text, pos.x, pos.y);
+                }
+                return;
+            }
+
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
         }
 
         function draw(e) {
             if (!drawing) return;
 
-            const rect = canvas.getBoundingClientRect();
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = 'red';
+            const pos = getPos(e);
 
-            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+            if (tool === "pen") {
+                ctx.strokeStyle = brushColor;
+                ctx.lineWidth = brushSize;
+
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+            }
         }
 
+        function endDraw(e) {
+            if (!drawing) return;
+
+            drawing = false;
+
+            if (tool === "arrow") {
+                const pos = getPos(e);
+                drawArrow(startX, startY, pos.x, pos.y);
+            }
+        }
+
+        // 🔥 DRAW ARROW
+        function drawArrow(x1, y1, x2, y2) {
+            const headlen = 10;
+
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const angle = Math.atan2(dy, dx);
+
+            ctx.strokeStyle = brushColor;
+            ctx.lineWidth = brushSize;
+
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6),
+                y2 - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6),
+                y2 - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.lineTo(x2, y2);
+            ctx.fillStyle = brushColor;
+            ctx.fill();
+        }
+
+        // 🔥 CLEAR
         function clearCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
+        // 🔥 SAVE MERGED IMAGE
         function saveCanvas() {
-            const mergedCanvas = document.createElement('canvas');
-            const mergedCtx = mergedCanvas.getContext('2d');
+            const merged = document.createElement('canvas');
+            const mctx = merged.getContext('2d');
             const img = document.getElementById('baseImage');
 
-            mergedCanvas.width = canvas.width;
-            mergedCanvas.height = canvas.height;
+            merged.width = canvas.width;
+            merged.height = canvas.height;
 
-            // Draw base image
-            mergedCtx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            mctx.drawImage(img, 0, 0);
+            mctx.drawImage(canvas, 0, 0);
 
-            // Draw sketch on top
-            mergedCtx.drawImage(canvas, 0, 0);
+            document.getElementById('canvasImageInput').value = merged.toDataURL("image/png");
 
-            // Convert to base64
-            const finalImage = mergedCanvas.toDataURL("image/png");
+            alert("Drawing saved!");
+        }
 
-            document.getElementById('canvasImageInput').value = finalImage;
+        // 🔥 TOOL SWITCHERS
+        function setTool(t) {
+            tool = t;
+        }
 
-            alert("Drawing applied!");
+        function setColor(c) {
+            brushColor = c;
+        }
+
+        function setSize(s) {
+            brushSize = s;
         }
     </script>
 </body>
