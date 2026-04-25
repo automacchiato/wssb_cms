@@ -456,94 +456,93 @@ if (isset($_POST['submit'])) {
 
                 <div class="col-md-7">
                     <div class="form-section shadow-sm h-100">
-                        <div class="section-title"><i class="fa-solid fa-person"></i> Body Posture</div>
-                        <div class="row g-3">
-                            <div class="col-4"><label>Erect</label><input type="number" step="0.01" name="erect" class="form-control"></div>
-                            <div class="col-4"><label>Hunch</label><input type="number" step="0.01" name="hunch" class="form-control"></div>
-                            <div class="col-4"><label>Corpulent</label><input type="number" step="0.01" name="corpulent" class="form-control"></div>
-                            <div class="col-6"><label>Shoulder Type</label>
-                                <select name="shoulder_type" class="form-select">
-                                    <option value="Square">Square</option>
-                                    <option value="Drop">Drop</option>
-                                </select>
-                            </div>
-                            <div class="col-6"><label>Fabric Dir.</label>
-                                <select name="fabric_direction" class="form-select">
-                                    <option value="No Direction">No Direction</option>
-                                    <option value="Vertical">Vertical</option>
-                                    <option value="Horizontal">Horizontal</option>
-                                </select>
-                            </div>
-                            <div class="col-6"><label>Front Cutting</label>
-                                <select name="front_cutting" class="form-select">
-                                    <option value="Straight">Straight</option>
-                                    <option value="Rounded">Rounded</option>
-                                </select>
-                            </div>
-                            <div class="col-6"><label>Placket Type</label>
-                                <select name="front_cutting" class="form-select">
-                                    <option value="Hidden Button">Hidden Button</option>
-                                    <option value="Live Placket">Live Placket</option>
-                                    <option value="Front Placket">Front Placket</option>
-                                </select>
+                        <div class="section-title"><i class="fa-solid fa-person"></i>Sketch or Upload</div>
+                        <div class="col-md-6">
+                            <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
+                            <div class="d-grid gap-2 d-md-block">
+                                <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
+
+                                <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
+                                    <i class="fa-solid fa-camera"></i> Take Photo / Upload
+                                </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-section shadow-sm">
-                <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
-                        <div class="d-grid gap-2 d-md-block">
-                            <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
-
-                            <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
-                                <i class="fa-solid fa-camera"></i> Take Photo / Upload
-                            </button>
+                        <div class="col-md-6 text-center">
+                            <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
+                                <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
+                                <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
-                            <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
-                            <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-section shadow-sm mt-4">
-                <div class="section-title"><i class="fa-solid fa-comment-dots"></i> Instructions & Finishing</div>
-                <div class="row g-3">
-                    <div class="col-md-8">
-                        <label>Special Instructions</label>
-                        <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label>Cleaning Type</label>
-                            <select name="cleaning_type" class="form-select text-danger fw-bold">
-                                <option value="No Restriction">No Restriction</option>
-                                <option value="Dry Clean Only">Dry Clean Only</option>
-                                <option value="Hand Wash Only">Hand Wash Only</option>
+                        <div class="col-6"><label>Front Cutting</label>
+                            <select name="front_cutting" class="form-select">
+                                <option value="Straight">Straight</option>
+                                <option value="Rounded">Rounded</option>
                             </select>
                         </div>
-                        <div class="row g-2">
-                            <div class="col-6"><label>Top Initial</label><input name="top_initial" class="form-control"></div>
-                            <div class="col-6"><label>Bottom Init.</label><input name="bottom_initial" class="form-control"></div>
+                        <div class="col-6"><label>Placket Type</label>
+                            <select name="front_cutting" class="form-select">
+                                <option value="Hidden Button">Hidden Button</option>
+                                <option value="Live Placket">Live Placket</option>
+                                <option value="Front Placket">Front Placket</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
+    </div>
 
-            <div class="sticky-bottom bg-light p-3 border-top d-flex justify-content-end gap-2 shadow">
-                <button type="submit" name="submit" class="btn btn-primary btn-lg px-5">
-                    <i class="fa-solid fa-floppy-disk"></i> Save Workslip
-                </button>
+    <div class="form-section shadow-sm">
+        <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
+                <div class="d-grid gap-2 d-md-block">
+                    <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
+
+                    <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
+                        <i class="fa-solid fa-camera"></i> Take Photo / Upload
+                    </button>
+                </div>
             </div>
-        </form>
+            <div class="col-md-6 text-center">
+                <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
+                    <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
+                    <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section shadow-sm mt-4">
+        <div class="section-title"><i class="fa-solid fa-comment-dots"></i> Instructions & Finishing</div>
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label>Special Instructions</label>
+                <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Cleaning Type</label>
+                    <select name="cleaning_type" class="form-select text-danger fw-bold">
+                        <option value="No Restriction">No Restriction</option>
+                        <option value="Dry Clean Only">Dry Clean Only</option>
+                        <option value="Hand Wash Only">Hand Wash Only</option>
+                    </select>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6"><label>Top Initial</label><input name="top_initial" class="form-control"></div>
+                    <div class="col-6"><label>Bottom Init.</label><input name="bottom_initial" class="form-control"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky-bottom bg-light p-3 border-top d-flex justify-content-end gap-2 shadow">
+        <button type="submit" name="submit" class="btn btn-primary btn-lg px-5">
+            <i class="fa-solid fa-floppy-disk"></i> Save Workslip
+        </button>
+    </div>
+    </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
