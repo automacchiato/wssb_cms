@@ -463,19 +463,21 @@ if (isset($_POST['submit'])) {
 
                 <div class="col-md-7">
                     <div class="form-section shadow-sm h-100">
-                        <div class="section-title"><i class="fa-solid fa-person"></i>Sketch or Upload</div>
-                        <div class="col-3"><label>Front Cutting</label>
-                            <select name="front_cutting" class="form-select">
-                                <option value="Straight">Straight</option>
-                                <option value="Rounded">Rounded</option>
-                            </select>
-                        </div>
-                        <div class="col-3"><label>Placket Type</label>
-                            <select name="front_cutting" class="form-select">
-                                <option value="Hidden Button">Hidden Button</option>
-                                <option value="Live Placket">Live Placket</option>
-                                <option value="Front Placket">Front Placket</option>
-                            </select>
+                        <div class="row g-3 d-flex justify-content-center">
+                            <div class="section-title"><i class="fa-solid fa-person"></i>Sketch or Upload</div>
+                            <div class="col-3"><label>Front Cutting</label>
+                                <select name="front_cutting" class="form-select">
+                                    <option value="Straight">Straight</option>
+                                    <option value="Rounded">Rounded</option>
+                                </select>
+                            </div>
+                            <div class="col-3"><label>Placket Type</label>
+                                <select name="front_cutting" class="form-select">
+                                    <option value="Hidden Button">Hidden Button</option>
+                                    <option value="Live Placket">Live Placket</option>
+                                    <option value="Front Placket">Front Placket</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
