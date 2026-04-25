@@ -376,6 +376,8 @@ if (isset($_POST['submit'])) {
                                 <h6 class="mt-auto mb-auto">Sleeve Length</h6>
                                 <h6 class="mt-auto mb-auto">Arm Length</h6>
                                 <h6 class="mt-auto mb-auto">Arm Hole</h6>
+                                <h6 class="mt-auto mb-auto">Erect</h6>
+                                <h6 class="mt-auto mb-auto">Hunch</h6>
                             </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">Fit</h5>
@@ -389,9 +391,13 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="sleeve_length" class="form-control">
                                 <input type="number" step="0.01" name="arm_length" class="form-control">
                                 <input type="number" step="0.01" name="arm_length" class="form-control">
+                                <input type="number" step="0.01" name="erect" class="form-control">
+                                <input type="number" step="0.01" name="hunch" class="form-control">
                             </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">X</h5>
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
@@ -415,6 +421,8 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="sleeve_length" class="form-control" disabled>
                                 <input type="number" step="0.01" name="arm_length" class="form-control" disabled>
                                 <input type="number" step="0.01" name="armhole_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="erect" class="form-control" disabled>
+                                <input type="number" step="0.01" name="hunch" class="form-control" disabled>
                             </div>
 
                             <!--<div class="col-4">-->
