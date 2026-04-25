@@ -172,11 +172,6 @@ if (isset($_POST['submit'])) {
             border-left: 5px solid #0d6efd;
         }
 
-        #baseImage,
-        #drawingCanvas {
-            transform-origin: 0 0;
-        }
-
         #drawingCanvas {
             touch-action: none;
             /* 🔥 disables scroll/zoom gestures */
@@ -184,8 +179,6 @@ if (isset($_POST['submit'])) {
 
         #canvasWrapper {
             touch-action: none;
-            overflow: hidden;
-            position: relative;
         }
     </style>
 </head>
@@ -601,15 +594,6 @@ if (isset($_POST['submit'])) {
             baseImage.onload = setupCanvas;
         };
 
-        let pointers = new Map();
-
-        let scale = 1;
-        let offsetX = 0;
-        let offsetY = 0;
-
-        let lastDistance = 0;
-        let isPanning = false;
-
 
         function previewImage(input) {
             const preview = document.getElementById('preview');
@@ -650,131 +634,18 @@ if (isset($_POST['submit'])) {
         }
 
         // 🔥 UNIFIED POINTER EVENTS (mouse + touch + Apple Pencil)
-        canvas.addEventListener('pointerdown', onPointerDown, {
+        canvas.addEventListener('pointerdown', startDraw, {
             passive: false
         });
-        canvas.addEventListener('pointermove', onPointerMove, {
+        canvas.addEventListener('pointermove', draw, {
             passive: false
         });
-        canvas.addEventListener('pointerup', onPointerUp, {
+        canvas.addEventListener('pointerup', endDraw, {
             passive: false
         });
-        canvas.addEventListener('pointercancel', onPointerUp, {
+        canvas.addEventListener('pointerleave', endDraw, {
             passive: false
         });
-
-        function onPointerDown(e) {
-            e.preventDefault();
-            canvas.setPointerCapture(e.pointerId);
-            pointers.set(e.pointerId, e);
-
-            if (pointers.size === 1) {
-                // DRAW START
-                const pos = getTransformedPos(e);
-                startX = pos.x;
-                startY = pos.y;
-
-                if (tool === "text") {
-                    const text = prompt("Enter label:");
-                    if (text) {
-                        ctx.fillStyle = brushColor;
-                        ctx.font = "16px Arial";
-                        ctx.fillText(text, pos.x, pos.y);
-                    }
-                    return;
-                }
-
-                drawing = true;
-                ctx.beginPath();
-                ctx.moveTo(pos.x, pos.y);
-            }
-
-            if (pointers.size === 2) {
-                // ZOOM START
-                drawing = false;
-                lastDistance = getDistance();
-            }
-        }
-
-        function onPointerMove(e) {
-            let lastMidX = 0;
-            let lastMidY = 0;
-
-            e.preventDefault();
-            if (!pointers.has(e.pointerId)) return;
-
-            pointers.set(e.pointerId, e);
-
-            // ✏️ DRAW
-            if (pointers.size === 1 && drawing) {
-                const pos = getTransformedPos(e);
-
-                ctx.strokeStyle = brushColor;
-                ctx.lineWidth = brushSize;
-
-                ctx.lineTo(pos.x, pos.y);
-                ctx.stroke();
-            }
-
-            // 🤏 PINCH ZOOM
-            if (pointers.size === 2) {
-                const pts = Array.from(pointers.values());
-
-                const midX = (pts[0].clientX + pts[1].clientX) / 2;
-                const midY = (pts[0].clientY + pts[1].clientY) / 2;
-
-                if (!isPanning) {
-                    isPanning = true;
-                    lastMidX = midX;
-                    lastMidY = midY;
-                }
-
-                offsetX += (midX - lastMidX);
-                offsetY += (midY - lastMidY);
-
-                lastMidX = midX;
-                lastMidY = midY;
-
-                applyTransform();
-            }
-        }
-
-        function onPointerUp(e) {
-            e.preventDefault();
-            pointers.delete(e.pointerId);
-
-            if (pointers.size < 2) {
-                isPanning = false;
-            }
-
-            drawing = false;
-        }
-
-        function getDistance() {
-            const pts = Array.from(pointers.values());
-            const dx = pts[0].clientX - pts[1].clientX;
-            const dy = pts[0].clientY - pts[1].clientY;
-            return Math.sqrt(dx * dx + dy * dy);
-        }
-
-        // 🔥 Convert screen → canvas coordinates (accounts for zoom/pan)
-        function getTransformedPos(e) {
-            const rect = canvas.getBoundingClientRect();
-
-            return {
-                x: (e.clientX - rect.left - offsetX) / scale,
-                y: (e.clientY - rect.top - offsetY) / scale
-            };
-        }
-
-        function applyTransform() {
-            const transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
-
-            document.getElementById('baseImage').style.transform = transform;
-            canvas.style.transform = transform;
-        }
-
-
 
         let startX = 0;
         let startY = 0;
