@@ -437,7 +437,14 @@ if (isset($_POST['submit'])) {
                                     <label>Corpulent</label>
                                     <input type="number" step="0.01" name="corpulent" class="form-control" disabled>
                                 </div>
-
+                                <div class="col-12">
+                                    <label>Cleaning Type</label>
+                                    <select name="cleaning_type" class="form-select text-danger fw-bold">
+                                        <option value="No Restriction">No Restriction</option>
+                                        <option value="Dry Clean Only">Dry Clean Only</option>
+                                        <option value="Hand Wash Only">Hand Wash Only</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <!--<div class="col-4">-->
@@ -457,13 +464,13 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-7">
                     <div class="form-section shadow-sm h-100">
                         <div class="section-title"><i class="fa-solid fa-person"></i>Sketch or Upload</div>
-                        <div class="col-6"><label>Front Cutting</label>
+                        <div class="col-3"><label>Front Cutting</label>
                             <select name="front_cutting" class="form-select">
                                 <option value="Straight">Straight</option>
                                 <option value="Rounded">Rounded</option>
                             </select>
                         </div>
-                        <div class="col-6"><label>Placket Type</label>
+                        <div class="col-3"><label>Placket Type</label>
                             <select name="front_cutting" class="form-select">
                                 <option value="Hidden Button">Hidden Button</option>
                                 <option value="Live Placket">Live Placket</option>
@@ -492,30 +499,6 @@ if (isset($_POST['submit'])) {
                 <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
                     <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
                     <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-section shadow-sm mt-4">
-        <div class="section-title"><i class="fa-solid fa-comment-dots"></i> Instructions & Finishing</div>
-        <div class="row g-3">
-            <div class="col-md-8">
-                <label>Special Instructions</label>
-                <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
-            </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    <label>Cleaning Type</label>
-                    <select name="cleaning_type" class="form-select text-danger fw-bold">
-                        <option value="No Restriction">No Restriction</option>
-                        <option value="Dry Clean Only">Dry Clean Only</option>
-                        <option value="Hand Wash Only">Hand Wash Only</option>
-                    </select>
-                </div>
-                <div class="row g-2">
-                    <div class="col-6"><label>Top Initial</label><input name="top_initial" class="form-control"></div>
-                    <div class="col-6"><label>Bottom Init.</label><input name="bottom_initial" class="form-control"></div>
                 </div>
             </div>
         </div>
