@@ -364,7 +364,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-section shadow-sm h-100">
                         <!--<div class="section-title"><i class="fa-solid fa-shirt"></i> Collar & Cuff</div>-->
                         <div class="row g-3 d-flex justify-content-center">
-                            <div class="col-md-2 d-flex flex-column justify-content-center text-center">
+                            <div class="col-md-3 d-flex flex-column justify-content-center text-center">
                                 <h5>Item</h5>
                                 <h6>Collar<br>Length</h6>
                                 <h6>Back<br>Length</h6>
@@ -425,7 +425,7 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="hunch" class="form-control" disabled>
                             </div>
 
-                            <div class="row g-3 d-flex justify-content-center">
+                            <div class="row g-3 d-flex">
                                 <div class="col-6">
                                     <label>Shoulder Type</label>
                                     <select name="shoulder_type" class="form-select">
