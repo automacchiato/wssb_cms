@@ -426,13 +426,18 @@ if (isset($_POST['submit'])) {
                             </div>
 
                             <div class="row g-3 d-flex">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <label>Shoulder Type</label>
                                     <select name="shoulder_type" class="form-select">
                                         <option value="Square">Square</option>
                                         <option value="Drop">Drop</option>
                                     </select>
                                 </div>
+                                <div class="col-12">
+                                    <label>Corpulent</label>
+                                    <input type="number" step="0.01" name="corpulent" class="form-control" disabled>
+                                </div>
+
                             </div>
 
                             <!--<div class="col-4">-->
