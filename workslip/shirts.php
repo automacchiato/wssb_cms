@@ -552,9 +552,9 @@ if (isset($_POST['submit'])) {
             let defaultImage = '';
 
             if (shirtType.includes('SH/L')) {
-                defaultImage = '../uploads/drawings/default_shirt_long.png';
+                defaultImage = '../uploads/drawings/default/default_shirt_long.png';
             } else {
-                defaultImage = '../uploads/drawings/default_shirt_short.png';
+                defaultImage = '../uploads/drawings/default/default_shirt_short.png';
             }
 
             baseImage.src = defaultImage;
