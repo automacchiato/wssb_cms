@@ -457,22 +457,6 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-7">
                     <div class="form-section shadow-sm h-100">
                         <div class="section-title"><i class="fa-solid fa-person"></i>Sketch or Upload</div>
-                        <div class="col-md-6">
-                            <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
-                            <div class="d-grid gap-2 d-md-block">
-                                <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
-
-                                <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
-                                    <i class="fa-solid fa-camera"></i> Take Photo / Upload
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
-                                <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
-                                <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
-                            </div>
-                        </div>
                         <div class="col-6"><label>Front Cutting</label>
                             <select name="front_cutting" class="form-select">
                                 <option value="Straight">Straight</option>
