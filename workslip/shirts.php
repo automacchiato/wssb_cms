@@ -171,6 +171,15 @@ if (isset($_POST['submit'])) {
             margin-bottom: 25px;
             border-left: 5px solid #0d6efd;
         }
+
+        #drawingCanvas {
+            touch-action: none;
+            /* 🔥 disables scroll/zoom gestures */
+        }
+
+        #canvasWrapper {
+            touch-action: none;
+        }
     </style>
 </head>
 
@@ -625,10 +634,18 @@ if (isset($_POST['submit'])) {
         }
 
         // 🔥 UNIFIED POINTER EVENTS (mouse + touch + Apple Pencil)
-        canvas.addEventListener('pointerdown', startDraw);
-        canvas.addEventListener('pointermove', draw);
-        canvas.addEventListener('pointerup', endDraw);
-        canvas.addEventListener('pointerleave', endDraw);
+        canvas.addEventListener('pointerdown', startDraw, {
+            passive: false
+        });
+        canvas.addEventListener('pointermove', draw, {
+            passive: false
+        });
+        canvas.addEventListener('pointerup', endDraw, {
+            passive: false
+        });
+        canvas.addEventListener('pointerleave', endDraw, {
+            passive: false
+        });
 
         let startX = 0;
         let startY = 0;
@@ -642,6 +659,9 @@ if (isset($_POST['submit'])) {
         }
 
         function startDraw(e) {
+            e.preventDefault();
+            document.body.style.overflow = "hidden";
+
             const pos = getPos(e);
             startX = pos.x;
             startY = pos.y;
@@ -662,6 +682,7 @@ if (isset($_POST['submit'])) {
         }
 
         function draw(e) {
+            e.preventDefault();
             if (!drawing) return;
 
             const pos = getPos(e);
@@ -676,6 +697,8 @@ if (isset($_POST['submit'])) {
         }
 
         function endDraw(e) {
+            e.preventDefault();
+            document.body.style.overflow = "";
             if (!drawing) return;
 
             drawing = false;
