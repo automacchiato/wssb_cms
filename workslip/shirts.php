@@ -425,6 +425,16 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="hunch" class="form-control" disabled>
                             </div>
 
+                            <div class="row g-3 d-flex justify-content-center">
+                                <div class="col-6">
+                                    <label>Shoulder Type</label>
+                                    <select name="shoulder_type" class="form-select">
+                                        <option value="Square">Square</option>
+                                        <option value="Drop">Drop</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <!--<div class="col-4">-->
                             <!--    <label>Cuff Type</label>-->
                             <!--    <select name="cuff_type" class="form-select">-->
