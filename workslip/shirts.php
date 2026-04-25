@@ -505,6 +505,7 @@ if (isset($_POST['submit'])) {
                                         <button type="button" class="btn btn-dark btn-sm" onclick="setTool('pen')">Pen</button>
                                         <button type="button" class="btn btn-dark btn-sm" onclick="setTool('arrow')">Arrow</button>
                                         <button type="button" class="btn btn-dark btn-sm" onclick="setTool('text')">Text</button>
+                                        <button type="button" class="btn btn-warning btn-sm" onclick="toggleFinger()">Toggle Finger Input</button>
 
                                         <!-- Colors -->
                                         <input type="color" onchange="setColor(this.value)" value="#ff0000">
@@ -594,6 +595,10 @@ if (isset($_POST['submit'])) {
             baseImage.onload = setupCanvas;
         };
 
+        function toggleFinger() {
+            allowFinger = !allowFinger;
+            alert("Finger drawing: " + (allowFinger ? "ON" : "OFF (Pencil only)"));
+        }
 
         function previewImage(input) {
             const preview = document.getElementById('preview');
@@ -658,7 +663,15 @@ if (isset($_POST['submit'])) {
             };
         }
 
+        let allowFinger = false; // toggle if you want fallback later
+
+        function isPencil(e) {
+            return e.pointerType === "pen";
+        }
+
         function startDraw(e) {
+
+            if (!isPencil(e) && !allowFinger) return;
             e.preventDefault();
             document.body.style.overflow = "hidden";
 
@@ -682,14 +695,20 @@ if (isset($_POST['submit'])) {
         }
 
         function draw(e) {
-            e.preventDefault();
             if (!drawing) return;
+
+            if (!isPencil(e) && !allowFinger) return;
+
+            e.preventDefault();
 
             const pos = getPos(e);
 
             if (tool === "pen") {
                 ctx.strokeStyle = brushColor;
-                ctx.lineWidth = brushSize;
+
+                // 🔥 PRESSURE SENSITIVITY (Apple Pencil)
+                const pressure = e.pressure || 0.5;
+                ctx.lineWidth = brushSize * (pressure * 2);
 
                 ctx.lineTo(pos.x, pos.y);
                 ctx.stroke();
@@ -697,9 +716,12 @@ if (isset($_POST['submit'])) {
         }
 
         function endDraw(e) {
+            if (!drawing) return;
+
+            if (!isPencil(e) && !allowFinger) return;
+
             e.preventDefault();
             document.body.style.overflow = "";
-            if (!drawing) return;
 
             drawing = false;
 
