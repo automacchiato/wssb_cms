@@ -19,14 +19,14 @@ if (!$details) {
     exit();
 }
 
-if(isset($_POST['submit'])) {
-    $drawingFile = ""; 
-    
+if (isset($_POST['submit'])) {
+    $drawingFile = "";
+
     // Handle File Upload
     if (isset($_FILES['drawing']) && $_FILES['drawing']['error'] == 0) {
         $uploadDir = '../uploads/drawings/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
-        
+
         $fileExt = pathinfo($_FILES['drawing']['name'], PATHINFO_EXTENSION);
         $fileName = "shirt_" . time() . "_" . $item_id . "." . $fileExt;
         $targetPath = $uploadDir . $fileName;
@@ -95,6 +95,7 @@ if(isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,16 +103,62 @@ if(isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #f0f2f5; }
-        .form-section { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #dee2e6; }
-        .section-title { font-size: 1rem; color: #0d6efd; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; }
-        .section-title i { margin-right: 10px; }
-        label { font-size: 0.8rem; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 5px; }
-        .form-control, .form-select { border-radius: 6px; border: 1px solid #ced4da; padding: 10px; }
-        .form-control:focus { box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1); border-color: #0d6efd; }
-        .header-box { background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid #0d6efd; }
+        body {
+            background-color: #f0f2f5;
+        }
+
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #dee2e6;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            color: #0d6efd;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+            border-color: #0d6efd;
+        }
+
+        .header-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #0d6efd;
+        }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -135,7 +182,7 @@ if(isset($_POST['submit'])) {
 
     <div class="container mb-5">
         <form method="POST" enctype="multipart/form-data">
-            
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h2 class="fw-bold mb-0">Shirt Measurement</h2>
@@ -182,12 +229,12 @@ if(isset($_POST['submit'])) {
                     <div class="col-md-4">
                         <h3 class="align-items-center text-center justify-content-between m-4">MUST</h3>
                     </div>
-                </div>        
-                
-                <div class="row g-3">    
+                </div>
+
+                <div class="row g-3">
                     <div class="col-md-4">
                         <label>Fabric Name</label>
-                        <input name="fabric_name" class="form-control" value="<?php echo htmlspecialchars($details['fabric_name'])?>" disabled>
+                        <input name="fabric_name" class="form-control" value="<?php echo htmlspecialchars($details['fabric_name']) ?>" disabled>
                     </div>
                     <div class="col-md-4">
                         <label>Salesman</label>
@@ -198,11 +245,11 @@ if(isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-4">
                         <label>Delivery Date</label>
-                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date'])?>" disabled>
+                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date']) ?>" disabled>
                     </div>
                 </div>
-                
-                <div class="row g-3"> 
+
+                <div class="row g-3">
                     <div class="col-md-2">
                         <label>Cutter</label>
                         <input name="cutter_name" class="form-control" placeholder="Enter name">
@@ -222,11 +269,11 @@ if(isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-2">
                         <label>Quantity</label>
-                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['quantity'])?>" disabled>
+                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['quantity']) ?>" disabled>
                     </div>
                     <div class="col-md-4">
                         <label>Fitting Date</label>
-                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date'])?>" disabled>
+                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date']) ?>" disabled>
                     </div>
                     <div class="col-md-2">
                         <label>Gender</label>
@@ -252,7 +299,7 @@ if(isset($_POST['submit'])) {
 
             <div class="form-section shadow-sm">
                 <!--<div class="section-title"><i class="fa-solid fa-ruler-combined"></i> Core Measurements (Inches)</div>-->
-                <div class="row g-3">                
+                <div class="row g-3">
                     <div class="col-md-6">
                         <label>Top Initial</label>
                         <input name="top_initial" class="form-control">
@@ -262,11 +309,11 @@ if(isset($_POST['submit'])) {
                         <input name="bottom_initial" class="form-control">
                     </div>
                 </div>
-                
-                <div class="row g-3"> 
+
+                <div class="row g-3">
                     <div class="col-md-6">
                         <label>Previous Inv. No.</label>
-                        <input name="previous_invoice_number" class="form-control" value="<?php echo htmlspecialchars($details['previous_invoice_number'])?>" disabled>
+                        <input name="previous_invoice_number" class="form-control" value="<?php echo htmlspecialchars($details['previous_invoice_number']) ?>" disabled>
                     </div>
                     <div class="col-md-3">
                         <label>Collar Design</label>
@@ -289,10 +336,10 @@ if(isset($_POST['submit'])) {
                         <label>Meet</label>
                         <input type="number" step="0.01" name="collar_meet" class="form-control">
                     </div>
-                    
-                    
+
+
                 </div>
-                
+
 
                 <!--<div class="row g-3">-->
                 <!--    <div class="col-md-2 col-6"><label>Front L.</label><input type="number" step="0.01" name="front_length" class="form-control"></div>-->
@@ -301,7 +348,7 @@ if(isset($_POST['submit'])) {
                 <!--    <div class="col-md-2 col-6"><label>Chest (Loose)</label><input type="number" step="0.01" name="chest_loose" class="form-control"></div>-->
                 <!--    <div class="col-md-2 col-6"><label>Waist (Fit)</label><input type="number" step="0.01" name="waist_fit" class="form-control"></div>-->
                 <!--    <div class="col-md-2 col-6"><label>Waist (Loose)</label><input type="number" step="0.01" name="waist_loose" class="form-control"></div>-->
-                    
+
                 <!--    <div class="col-md-2 col-6"><label>Hip (Fit)</label><input type="number" step="0.01" name="hip_fit" class="form-control"></div>-->
                 <!--    <div class="col-md-2 col-6"><label>Hip (Loose)</label><input type="number" step="0.01" name="hip_loose" class="form-control"></div>-->
                 <!--    <div class="col-md-2 col-6"><label>Shoulder</label><input type="number" step="0.01" name="shoulder" class="form-control"></div>-->
@@ -327,6 +374,7 @@ if(isset($_POST['submit'])) {
                                 <h6 class="mt-auto mb-auto">Hip</h6>
                                 <h6 class="mt-auto mb-auto">Shoulder</h6>
                                 <h6 class="mt-auto mb-auto">Sleeve Length</h6>
+                                <h6 class="mt-auto mb-auto">Arm Length</h6>
                             </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">Fit</h5>
@@ -338,6 +386,7 @@ if(isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="hip_fit" class="form-control">
                                 <input type="number" step="0.01" name="shoulder" class="form-control">
                                 <input type="number" step="0.01" name="sleeve_length" class="form-control">
+                                <input type="number" step="0.01" name="arm_length" class="form-control">
                             </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">X</h5>
@@ -349,7 +398,8 @@ if(isset($_POST['submit'])) {
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                            </div> 
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                            </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">Loose</h5>
                                 <input type="number" step="0.01" name="collar_length" class="form-control" disabled>
@@ -360,8 +410,9 @@ if(isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="hip_loose" class="form-control">
                                 <input type="number" step="0.01" name="shoulder" class="form-control" disabled>
                                 <input type="number" step="0.01" name="sleeve_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="arm_length" class="form-control" disabled>
                             </div>
-                        
+
                             <!--<div class="col-4">-->
                             <!--    <label>Cuff Type</label>-->
                             <!--    <select name="cuff_type" class="form-select">-->
@@ -375,7 +426,7 @@ if(isset($_POST['submit'])) {
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-7">
                     <div class="form-section shadow-sm h-100">
                         <div class="section-title"><i class="fa-solid fa-person"></i> Body Posture</div>
@@ -413,28 +464,28 @@ if(isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-section shadow-sm">
-    <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
-    <div class="row align-items-center">
-        <div class="col-md-6">
-            <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
-            <div class="d-grid gap-2 d-md-block">
-                <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
-                
-                <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
-                    <i class="fa-solid fa-camera"></i> Take Photo / Upload
-                </button>
+                <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
+                        <div class="d-grid gap-2 d-md-block">
+                            <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
+
+                            <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
+                                <i class="fa-solid fa-camera"></i> Take Photo / Upload
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
+                            <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
+                            <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6 text-center">
-            <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
-                <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
-                <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
-            </div>
-        </div>
-    </div>
-</div>
 
             <div class="form-section shadow-sm mt-4">
                 <div class="section-title"><i class="fa-solid fa-comment-dots"></i> Instructions & Finishing</div>
@@ -470,21 +521,22 @@ if(isset($_POST['submit'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-function previewImage(input) {
-    const preview = document.getElementById('preview');
-    const container = document.getElementById('imagePreviewContainer');
-    
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            container.style.display = 'block';
+        function previewImage(input) {
+            const preview = document.getElementById('preview');
+            const container = document.getElementById('imagePreviewContainer');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    container.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
         }
-        
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-</script>
+    </script>
 </body>
+
 </html>
