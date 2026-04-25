@@ -22,6 +22,21 @@ if (!$details) {
 if (isset($_POST['submit'])) {
     $drawingFile = "";
 
+    if (!empty($_POST['canvas_image'])) {
+        $img = $_POST['canvas_image'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+
+        $data = base64_decode($img);
+
+        $fileName = "shirt_canvas_" . time() . "_" . $item_id . ".png";
+        $filePath = '../uploads/drawings/' . $fileName;
+
+        file_put_contents($filePath, $data);
+
+        $drawingFile = $fileName;
+    }
+
     // Handle File Upload
     if (isset($_FILES['drawing']) && $_FILES['drawing']['error'] == 0) {
         $uploadDir = '../uploads/drawings/';
@@ -474,7 +489,23 @@ if (isset($_POST['submit'])) {
                                         <i class="fa-solid fa-camera"></i> Take Photo / Upload
                                     </button>
                                 </div>
-                                @TODO: Add drawing canvas here. Default photos are in /uploads/drawings/ with filename format default_shirt_long.png and default_shirt_short.png, depends on what chose in shirt_type. If a default photo exists for this item, show it in the preview container on page load.
+                                <div class="mt-3">
+                                    <!-- Canvas Wrapper -->
+                                    <div id="canvasWrapper" style="position: relative; display:none; max-width: 100%;">
+                                        <img id="baseImage" src="" style="max-width:100%; border-radius:8px;">
+                                        <canvas id="drawingCanvas" style="position:absolute; top:0; left:0;"></canvas>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <div class="mt-2 d-flex gap-2">
+                                        <button type="button" class="btn btn-sm btn-dark" onclick="enableDraw()">Draw</button>
+                                        <button type="button" class="btn btn-sm btn-secondary" onclick="clearCanvas()">Clear</button>
+                                        <button type="button" class="btn btn-sm btn-success" onclick="saveCanvas()">Apply Drawing</button>
+                                    </div>
+
+                                    <!-- Hidden field to store canvas image -->
+                                    <input type="hidden" name="canvas_image" id="canvasImageInput">
+                                </div>
                             </div>
                             <div class="col-md-12 text-center">
                                 <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
@@ -513,6 +544,26 @@ if (isset($_POST['submit'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        window.onload = function() {
+            const shirtType = document.querySelector('[name="shirt_type"]').value;
+            const baseImage = document.getElementById('baseImage');
+            const wrapper = document.getElementById('canvasWrapper');
+
+            let defaultImage = '';
+
+            if (shirtType.includes('SH/L')) {
+                defaultImage = '../uploads/drawings/default_shirt_long.png';
+            } else {
+                defaultImage = '../uploads/drawings/default_shirt_short.png';
+            }
+
+            baseImage.src = defaultImage;
+            wrapper.style.display = 'block';
+
+            baseImage.onload = setupCanvas;
+        };
+
+
         function previewImage(input) {
             const preview = document.getElementById('preview');
             const container = document.getElementById('imagePreviewContainer');
@@ -527,6 +578,66 @@ if (isset($_POST['submit'])) {
 
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        let canvas = document.getElementById('drawingCanvas');
+        let ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        function setupCanvas() {
+            const img = document.getElementById('baseImage');
+
+            canvas.width = img.clientWidth;
+            canvas.height = img.clientHeight;
+
+            canvas.style.width = img.clientWidth + "px";
+            canvas.style.height = img.clientHeight + "px";
+        }
+
+        function enableDraw() {
+            canvas.addEventListener('mousedown', () => drawing = true);
+            canvas.addEventListener('mouseup', () => drawing = false);
+            canvas.addEventListener('mousemove', draw);
+        }
+
+        function draw(e) {
+            if (!drawing) return;
+
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = 'red';
+
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function saveCanvas() {
+            const mergedCanvas = document.createElement('canvas');
+            const mergedCtx = mergedCanvas.getContext('2d');
+            const img = document.getElementById('baseImage');
+
+            mergedCanvas.width = canvas.width;
+            mergedCanvas.height = canvas.height;
+
+            // Draw base image
+            mergedCtx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Draw sketch on top
+            mergedCtx.drawImage(canvas, 0, 0);
+
+            // Convert to base64
+            const finalImage = mergedCanvas.toDataURL("image/png");
+
+            document.getElementById('canvasImageInput').value = finalImage;
+
+            alert("Drawing applied!");
         }
     </script>
 </body>
