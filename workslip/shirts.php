@@ -339,7 +339,7 @@ if (isset($_POST['submit'])) {
                         <label>Previous Inv. No.</label>
                         <input name="previous_invoice_number" class="form-control" value="<?php echo htmlspecialchars($details['previous_invoice_number']) ?>" disabled>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label>Collar Design</label>
                         <select name="collar_design" class="form-select">
                             <option value="Button Down (C1)">Button Down (C1)</option>
@@ -351,6 +351,10 @@ if (isset($_POST['submit'])) {
                     <div class="col-md-1">
                         <label>Height</label>
                         <input type="number" step="0.01" name="collar_height" class="form-control">
+                    </div>
+                    <div class="col-md-1">
+                        <label>Width</label>
+                        <input type="number" step="0.01" name="collar_width" class="form-control">
                     </div>
                     <div class="col-md-1">
                         <label>Gap</label>
