@@ -402,11 +402,11 @@ if (isset($_POST['submit'])) {
                                 <h6 class="mt-auto mb-auto">Hip</h6>
                                 <h6 class="mt-auto mb-auto">Shoulder</h6>
                                 <h6 class="mt-auto mb-auto">Sleeve Length</h6>
-                                <h6 class="mt-auto mb-auto">Cuff/h6>
-                                    <h6 class="mt-auto mb-auto">Arm Length</h6>
-                                    <h6 class="mt-auto mb-auto">Arm Hole</h6>
-                                    <h6 class="mt-auto mb-auto">Erect</h6>
-                                    <h6 class="mt-auto mb-auto">Hunch</h6>
+                                <h6 class="mt-auto mb-auto">Cuff</h6>
+                                <h6 class="mt-auto mb-auto">Arm Length</h6>
+                                <h6 class="mt-auto mb-auto">Arm Hole</h6>
+                                <h6 class="mt-auto mb-auto">Erect</h6>
+                                <h6 class="mt-auto mb-auto">Hunch</h6>
                             </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">Fit</h5>
@@ -478,7 +478,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="col-6">
                                     <label>Cuff Width</label>
-                                    <input type="number" step="0.01" name="cuff_width" class="form-control" disabled>
+                                    <input type="number" step="0.01" name="cuff_width" class="form-control">
                                 </div>
                                 <div class="col-12">
                                     <label>Cleaning Type</label>
