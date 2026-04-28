@@ -402,10 +402,11 @@ if (isset($_POST['submit'])) {
                                 <h6 class="mt-auto mb-auto">Hip</h6>
                                 <h6 class="mt-auto mb-auto">Shoulder</h6>
                                 <h6 class="mt-auto mb-auto">Sleeve Length</h6>
-                                <h6 class="mt-auto mb-auto">Arm Length</h6>
-                                <h6 class="mt-auto mb-auto">Arm Hole</h6>
-                                <h6 class="mt-auto mb-auto">Erect</h6>
-                                <h6 class="mt-auto mb-auto">Hunch</h6>
+                                <h6 class="mt-auto mb-auto">Cuff/h6>
+                                    <h6 class="mt-auto mb-auto">Arm Length</h6>
+                                    <h6 class="mt-auto mb-auto">Arm Hole</h6>
+                                    <h6 class="mt-auto mb-auto">Erect</h6>
+                                    <h6 class="mt-auto mb-auto">Hunch</h6>
                             </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">Fit</h5>
@@ -417,6 +418,7 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="hip_fit" class="form-control">
                                 <input type="number" step="0.01" name="shoulder" class="form-control">
                                 <input type="number" step="0.01" name="sleeve_length" class="form-control">
+                                <input type="number" step="0.01" name="cuff_length" class="form-control">
                                 <input type="number" step="0.01" name="arm_length" class="form-control">
                                 <input type="number" step="0.01" name="armhole_length" class="form-control">
                                 <input type="number" step="0.01" name="erect" class="form-control">
@@ -424,6 +426,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">X</h5>
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 <input type="text" name="" class="form-control text-center" value="X" disabled="">
@@ -447,6 +450,7 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="hip_loose" class="form-control">
                                 <input type="number" step="0.01" name="shoulder" class="form-control" disabled>
                                 <input type="number" step="0.01" name="sleeve_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="cuff_length" class="form-control" disabled>
                                 <input type="number" step="0.01" name="arm_length" class="form-control" disabled>
                                 <input type="number" step="0.01" name="armhole_length" class="form-control" disabled>
                                 <input type="number" step="0.01" name="erect" class="form-control" disabled>
@@ -464,6 +468,17 @@ if (isset($_POST['submit'])) {
                                 <div class="col-12">
                                     <label>Corpulent</label>
                                     <input type="number" step="0.01" name="corpulent" class="form-control" disabled>
+                                </div>
+                                <div class="col-6">
+                                    <label>Cuff Type</label>
+                                    <select name="cuff_type" class="form-select">
+                                        <option value="Single">Single</option>
+                                        <option value="Double">Double</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label>Cuff Width</label>
+                                    <input type="number" step="0.01" name="cuff_width" class="form-control" disabled>
                                 </div>
                                 <div class="col-12">
                                     <label>Cleaning Type</label>
