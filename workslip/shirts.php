@@ -5,7 +5,7 @@ include('../config/db.php');
 $item_id = isset($_GET['item_id']) ? mysqli_real_escape_string($conn, $_GET['item_id']) : 0;
 
 // Fetch Item and Customer details
-$query = "SELECT ii.*, i.invoice_number, i.customer_id, c.customer_name 
+$query = "SELECT ii.*, i.invoice_number, i.customer_id, i.delivery_date, i.fitting_date , c.customer_name 
           FROM invoice_items ii
           JOIN invoices i ON ii.invoice_id = i.invoice_id
           JOIN customers c ON i.customer_id = c.customer_id
