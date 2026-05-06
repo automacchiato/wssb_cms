@@ -19,16 +19,31 @@ if (!$details) {
     exit();
 }
 
-if(isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     $drawingFile = ""; // Logic for file upload could go here
-    
+
+    if (!empty($_POST['canvas_image'])) {
+        $img = $_POST['canvas_image'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+
+        $data = base64_decode($img);
+
+        $fileName = "shirt_canvas_" . time() . "_" . $item_id . ".png";
+        $filePath = '../uploads/drawings/' . $fileName;
+
+        file_put_contents($filePath, $data);
+
+        $drawingFile = $fileName;
+    }
+
     // Handle File Upload
     if (isset($_FILES['drawing']) && $_FILES['drawing']['error'] == 0) {
         $uploadDir = '../uploads/drawings/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
-        
+
         $fileExt = pathinfo($_FILES['drawing']['name'], PATHINFO_EXTENSION);
-        $fileName = "shirt_" . time() . "_" . $item_id . "." . $fileExt;
+        $fileName = "trousers_" . time() . "_" . $item_id . "." . $fileExt;
         $targetPath = $uploadDir . $fileName;
 
         if (move_uploaded_file($_FILES['drawing']['tmp_name'], $targetPath)) {
@@ -39,50 +54,50 @@ if(isset($_POST['submit'])) {
     $stmt = $conn->prepare("INSERT INTO workslip_trousers
                 (item_id, manufacturer, salesman_name, cutter_name, tailor_name, gender, special_instructions, previous_invoice_number, fly_hs, side_pocket_hs, side_seams_hs, pocket_pull, pleat_num, waist_fit, waist_loose, hip_fit, hip_loose, top_hip_fit, top_hip_loose, length, thigh, knee, bottom, crotch, position_on_waist, corpulent, seating_type, turn_up, turn_up_length, inside_pocket_num, inside_pocket_width, inside_pocket_length, loop_num, loop_width, loop_length, right_pocket, left_pocket, lining_type, bottom_initial, cleaning_type, drawing)
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            $stmt->bind_param(
-                "issssssssssssdddddddddddsdssdsddsddssssss",
-                $item_id, //i
-                $_POST['manufacturer'], //s
-                $_POST['salesman_name'], //s
-                $_POST['cutter_name'], //s
-                $_POST['tailor_name'], //s
-                $_POST['gender'], //s
-                $_POST['special_instructions'], //s
-                $_POST['previous_invoice_number'], //s
-                $_POST['fly_hs'], //s
-                $_POST['side_pocket_hs'], //s
-                $_POST['side_seams_hs'], //s
-                $_POST['pocket_pull'], ///s
-                $_POST['pleat_num'], //s
-                $_POST['waist_fit'], //d
-                $_POST['waist_loose'], //d
-                $_POST['hip_fit'], //d
-                $_POST['hip_loose'], //d
-                $_POST['top_hip_fit'], //d
-                $_POST['top_hip_loose'], //d
-                $_POST['length'], //d
-                $_POST['thigh'], //d
-                $_POST['knee'], //d
-                $_POST['bottom'], //d
-                $_POST['crotch'], //d
-                $_POST['position_on_waist'], //s
-                $_POST['corpulent'], //double
-                $_POST['seating_type'], //s
-                $_POST['turn_up'], //s
-                $_POST['turn_up_length'], //d
-                $_POST['inside_pocket_num'], //s
-                $_POST['inside_pocket_width'], //d
-                $_POST['inside_pocket_length'], //d
-                $_POST['loop_num'], //s
-                $_POST['loop_width'], //d
-                $_POST['loop_length'], //d
-                $_POST['right_pocket'], //s
-                $_POST['left_pocket'], //s
-                $_POST['lining_type'], //s
-                $_POST['bottom_initial'], //s
-                $_POST['cleaning_type'], //s
-                $drawingFile
-            );
+    $stmt->bind_param(
+        "issssssssssssdddddddddddsdssdsddsddssssss",
+        $item_id,
+        $_POST['manufacturer'],
+        $_POST['salesman_name'],
+        $_POST['cutter_name'],
+        $_POST['tailor_name'],
+        $_POST['gender'],
+        $_POST['special_instructions'],
+        $_POST['previous_invoice_number'],
+        $_POST['fly_hs'],
+        $_POST['side_pocket_hs'],
+        $_POST['side_seams_hs'],
+        $_POST['pocket_pull'],
+        $_POST['pleat_num'],
+        $_POST['waist_fit'],
+        $_POST['waist_loose'],
+        $_POST['hip_fit'],
+        $_POST['hip_loose'],
+        $_POST['top_hip_fit'],
+        $_POST['top_hip_loose'],
+        $_POST['length'],
+        $_POST['thigh'],
+        $_POST['knee'],
+        $_POST['bottom'],
+        $_POST['crotch'],
+        $_POST['position_on_waist'],
+        $_POST['corpulent'],
+        $_POST['seating_type'],
+        $_POST['turn_up'],
+        $_POST['turn_up_length'],
+        $_POST['inside_pocket_num'],
+        $_POST['inside_pocket_width'],
+        $_POST['inside_pocket_length'],
+        $_POST['loop_num'],
+        $_POST['loop_width'],
+        $_POST['loop_length'],
+        $_POST['right_pocket'],
+        $_POST['left_pocket'],
+        $_POST['lining_type'],
+        $_POST['bottom_initial'],
+        $_POST['cleaning_type'],
+        $drawingFile
+    );
 
     if ($stmt->execute()) {
         header("Location: ../customers/view.php?id=" . $details['customer_id'] . "&msg=workslip_saved");
@@ -93,6 +108,7 @@ if(isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,16 +116,71 @@ if(isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #f0f2f5; }
-        .form-section { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #dee2e6; }
-        .section-title { font-size: 1rem; color: #0d6efd; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; }
-        .section-title i { margin-right: 10px; }
-        label { font-size: 0.8rem; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 5px; }
-        .form-control, .form-select { border-radius: 6px; border: 1px solid #ced4da; padding: 10px; }
-        .form-control:focus { box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1); border-color: #0d6efd; }
-        .header-box { background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid #0d6efd; }
+        body {
+            background-color: #f0f2f5;
+        }
+
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #dee2e6;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            color: #0d6efd;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+            border-color: #0d6efd;
+        }
+
+        .header-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #0d6efd;
+        }
+
+        #drawingCanvas {
+            touch-action: none;
+            /* 🔥 disables scroll/zoom gestures */
+        }
+
+        #canvasWrapper {
+            touch-action: none;
+        }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -133,7 +204,7 @@ if(isset($_POST['submit'])) {
 
     <div class="container mb-5">
         <form method="POST" enctype="multipart/form-data">
-            
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h2 class="fw-bold mb-0">Trousers Measurement</h2>
@@ -161,44 +232,83 @@ if(isset($_POST['submit'])) {
             </div>
 
             <div class="form-section shadow-sm">
-                <div class="section-title"><i class="fa-solid fa-user-tie"></i> Personnel & Reference</div>
+                <!--<div class="section-title"><i class="fa-solid fa-user-tie"></i> Personnel & Reference</div>-->
                 <div class="row g-3">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <label>placeholder</label>
+                        <select name="manufacturer" class="form-select" disabled="">
+                            <option value="Demak Factory">Demak Factory</option>
+                            <option value="Fabrica">Fabrica</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
                         <label>Manufacturer</label>
                         <select name="manufacturer" class="form-select">
                             <option value="Demak Factory">Demak Factory</option>
                             <option value="Fabrica">Fabrica</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <h3 class="align-items-center text-center justify-content-between m-4">MUST</h3>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label>Fabric Name</label>
+                        <input name="fabric_name" class="form-control" value="<?php echo htmlspecialchars($details['fabric_name']) ?>" disabled>
+                    </div>
+                    <div class="col-md-4">
                         <label>Salesman</label>
                         <select name="salesman_name" class="form-select">
                             <option value="Razak">Razak</option>
                             <option value="Hamidah">Hamidah</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <label>Delivery Date</label>
+                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date']) ?>" disabled>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-2">
                         <label>Cutter</label>
                         <input name="cutter_name" class="form-control" placeholder="Enter name">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label>Tailor</label>
                         <input name="tailor_name" class="form-control" placeholder="Enter name">
                     </div>
                     <div class="col-md-4">
+                        <label>Quantity</label>
+                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['quantity']) ?>" disabled>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Fitting Date</label>
+                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date']) ?>" disabled>
+                    </div>
+                    <div class="col-md-2">
                         <label>Gender</label>
                         <select name="gender" class="form-select">
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
                     </div>
-                    <div class="col-md-4">
-                        <label>Prev. Invoice #</label>
-                        <input name="previous_invoice_number" class="form-control" placeholder="e.g. 8892">
+                    <div class="col-md-8">
+                        <label>Special Instructions</label>
+                        <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Fabric Dir.</label>
+                        <select name="fabric_direction" class="form-select" rows="4">
+                            <option value="No Direction">No Direction</option>
+                            <option value="Vertical">Vertical</option>
+                            <option value="Horizontal">Horizontal</option>
+                        </select>
                     </div>
                 </div>
             </div>
-
             <div class="form-section shadow-sm">
                 <div class="section-title"><i class="fa-solid fa-ruler-combined"></i> Core Measurements (Inches)</div>
                 <div class="row g-3">
@@ -207,28 +317,28 @@ if(isset($_POST['submit'])) {
                         <select name="fly_hs" class="form-control" required>
                             <option value="Yes">Yes</option>
                             <option value="No" selected>No</option>
-                        </select> 
+                        </select>
                     </div>
                     <div class="col-md-2 col-6">
                         <label>Side Pocket Hidden Stitch</label>
                         <select name="side_pocket_hs" class="form-control" required>
                             <option value="Yes">Yes</option>
                             <option value="No" selected>No</option>
-                        </select> 
+                        </select>
                     </div>
                     <div class="col-md-2 col-6">
                         <label>Side Seams Hidden Stitch</label>
                         <select name="side_seams_hs" class="form-control" required>
                             <option value="Yes">Yes</option>
                             <option value="No" selected>No</option>
-                        </select> 
+                        </select>
                     </div>
                     <div class="col-md-2 col-6">
                         <label>Pocket Pull Stitch</label>
                         <select name="pocket_pull" class="form-control" required>
                             <option value="Yes">Yes</option>
                             <option value="No" selected>No</option>
-                        </select> 
+                        </select>
                     </div>
                     <div class="col-md-2 col-6">
                         <label>Pleat Number</label>
@@ -238,8 +348,8 @@ if(isset($_POST['submit'])) {
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
-                        </select>  
-                    </div>                    
+                        </select>
+                    </div>
 
                     <div class="col-md-2 col-6">
                         <label>Waist (Fit)</label>
@@ -261,11 +371,11 @@ if(isset($_POST['submit'])) {
                         <label>Top Hip (Fit)</label>
                         <input type="number" step="0.01" name="top_hip_fit" class="form-control">
                     </div>
-                     <div class="col-md-2 col-6">
+                    <div class="col-md-2 col-6">
                         <label>Top Hip (Loose)</label>
                         <input type="number" step="0.01" name="top_hip_loose" class="form-control">
                     </div>
-                    
+
                     <div class="col-md-2 col-6">
                         <label>Length</label>
                         <input type="number" step="0.01" name="length" class="form-control">
@@ -307,23 +417,23 @@ if(isset($_POST['submit'])) {
                             <div class="col-4"><label>Inside Pocket Length</label>
                                 <input type="number" step="0.01" name="inside_pocket_length" class="form-control">
                             </div>
-                            
+
                             <div class="col-6"><label>Right Pocket</label>
                                 <select name="right_pocket" class="form-control">
                                     <option value="Yes" selected>Yes</option>
                                     <option value="No">No</option>
-                                </select> 
+                                </select>
                             </div>
                             <div class="col-6"><label>Left Pocket</label>
                                 <select name="left_pocket" class="form-control">
                                     <option value="Yes" selected>Yes</option>
                                     <option value="No">No</option>
-                                </select> 
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6">
                     <div class="form-section shadow-sm h-100">
                         <div class="section-title"><i class="fa-solid fa-person"></i>Body Posture</div>
@@ -333,14 +443,14 @@ if(isset($_POST['submit'])) {
                                     <option value="Not Stated" disabled selected>Not Stated</option>
                                     <option value="Front High">Front High</option>
                                     <option value="Front Cut Low">Front Cut Low</option>
-                                </select>   
+                                </select>
                             </div>
                             <div class="col-6"><label>Seating Type</label>
                                 <select name="position_on_waist" class="form-control">
                                     <option value="Not Stated" disabled selected>Not Stated</option>
                                     <option value="Front High">Front High</option>
                                     <option value="Front Cut Low">Front Cut Low</option>
-                                </select>   
+                                </select>
                             </div>
                             <div class="col-6"><label>Turn Up</label>
                                 <select name="turn_up" class="form-select">
@@ -373,28 +483,28 @@ if(isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-section shadow-sm">
-    <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
-    <div class="row align-items-center">
-        <div class="col-md-6">
-            <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
-            <div class="d-grid gap-2 d-md-block">
-                <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
-                
-                <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
-                    <i class="fa-solid fa-camera"></i> Take Photo / Upload
-                </button>
+                <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
+                        <div class="d-grid gap-2 d-md-block">
+                            <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
+
+                            <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
+                                <i class="fa-solid fa-camera"></i> Take Photo / Upload
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
+                            <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
+                            <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6 text-center">
-            <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
-                <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
-                <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
-            </div>
-        </div>
-    </div>
-</div>
 
             <div class="form-section shadow-sm mt-4">
                 <div class="section-title"><i class="fa-solid fa-comment-dots"></i> Instructions & Finishing</div>
@@ -429,21 +539,22 @@ if(isset($_POST['submit'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-function previewImage(input) {
-    const preview = document.getElementById('preview');
-    const container = document.getElementById('imagePreviewContainer');
-    
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            container.style.display = 'block';
+        function previewImage(input) {
+            const preview = document.getElementById('preview');
+            const container = document.getElementById('imagePreviewContainer');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    container.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
         }
-        
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-</script>
+    </script>
 </body>
+
 </html>
