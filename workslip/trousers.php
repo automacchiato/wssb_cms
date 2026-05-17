@@ -309,27 +309,19 @@ if (isset($_POST['submit'])) {
             <div class="row g-4">
                 <div class="col-md-5">
                     <div class="form-section shadow-sm h-100">
-                        <!--<div class="section-title"><i class="fa-solid fa-shirt"></i> Collar & Cuff</div>-->
+                        <div class="section-title"><i class="fa-solid fa-shirt"></i>Hand Stitch</div>
                         <div class="row g-3 d-flex justify-content-center">
                             <div class="col-md-3 d-flex flex-column justify-content-center text-center">
-                                <h5>Item</h5>
+                                <!-- <h5>Item</h5>
                                 <h6>Collar<br>Length</h6>
                                 <h6>Back<br>Length</h6>
-                                <h6>Front<br>Length</h6>
-                                <h6 class="mt-auto mb-auto">Chest</h6>
-                                <h6 class="mt-auto mb-auto">Waist</h6>
-                                <h6 class="mt-auto mb-auto">Hip</h6>
-                                <h6 class="mt-auto mb-auto">Shoulder</h6>
-                                <h6 class="mt-auto mb-auto">Sleeve Length</h6>
-                                <h6 class="mt-auto mb-auto">Arm Length</h6>
-                                <h6 class="mt-auto mb-auto">Elbow Length</h6>
-                                <h6 class="mt-auto mb-auto">Cuff</h6>
-                                <h6 class="mt-auto mb-auto">Arm Hole</h6>
-                                <h6 class="mt-auto mb-auto">Erect</h6>
-                                <h6 class="mt-auto mb-auto">Hunch</h6>
+                                <h6>Front<br>Length</h6> -->
+                                <h6 class="mt-auto mb-auto">Fly (FL)</h6>
+                                <h6 class="mt-auto mb-auto">Side Pocket Hidden (SP)</h6>
+                                <h6 class="mt-auto mb-auto">Side Seams (SS)</h6>
+                                <h6 class="mt-auto mb-auto">Pocket Pull (PP)</h6>
                             </div>
                             <div class="col-md-3">
-                                <h5 class="text-center">Fit</h5>
                                 <input type="number" step="0.01" name="collar_length" class="form-control">
                                 <input type="number" step="0.01" name="back_length" class="form-control">
                                 <input type="number" step="0.01" name="front_length" class="form-control">
