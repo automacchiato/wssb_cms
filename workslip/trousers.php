@@ -184,7 +184,7 @@ if (isset($_POST['submit'])) {
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="../dashboard.php text-primary">WSSB CMS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
