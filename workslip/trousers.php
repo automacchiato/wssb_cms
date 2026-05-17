@@ -668,6 +668,24 @@ if (isset($_POST['submit'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        window.onload = function() {
+            const baseImage = document.getElementById('baseImage');
+            const wrapper = document.getElementById('canvasWrapper');
+
+            let defaultImage = '';
+            defaultImage = '../uploads/drawings/default/default_trousers.png';
+
+            baseImage.src = defaultImage;
+            wrapper.style.display = 'block';
+
+            baseImage.onload = setupCanvas;
+        };
+
+        function toggleFinger() {
+            allowFinger = !allowFinger;
+            alert("Finger drawing: " + (allowFinger ? "ON" : "OFF (Pencil only)"));
+        }
+
         function previewImage(input) {
             const preview = document.getElementById('preview');
             const container = document.getElementById('imagePreviewContainer');
@@ -682,6 +700,183 @@ if (isset($_POST['submit'])) {
 
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        //drawing
+        let canvas = document.getElementById('drawingCanvas');
+        let ctx = canvas.getContext('2d');
+
+        let drawing = false;
+        let tool = "pen"; // pen | arrow | text
+        let brushSize = 2;
+        let brushColor = "red";
+
+        function setupCanvas() {
+            const img = document.getElementById('baseImage');
+
+            canvas.width = img.clientWidth;
+            canvas.height = img.clientHeight;
+
+            canvas.style.width = img.clientWidth + "px";
+            canvas.style.height = img.clientHeight + "px";
+
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+        }
+
+        // 🔥 UNIFIED POINTER EVENTS (mouse + touch + Apple Pencil)
+        canvas.addEventListener('pointerdown', startDraw, {
+            passive: false
+        });
+        canvas.addEventListener('pointermove', draw, {
+            passive: false
+        });
+        canvas.addEventListener('pointerup', endDraw, {
+            passive: false
+        });
+        canvas.addEventListener('pointerleave', endDraw, {
+            passive: false
+        });
+
+        let startX = 0;
+        let startY = 0;
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        let allowFinger = false; // toggle if you want fallback later
+
+        function isPencil(e) {
+            return e.pointerType === "pen";
+        }
+
+        function startDraw(e) {
+
+            if (!isPencil(e) && !allowFinger) return;
+            e.preventDefault();
+            document.body.style.overflow = "hidden";
+
+            const pos = getPos(e);
+            startX = pos.x;
+            startY = pos.y;
+
+            if (tool === "text") {
+                const text = prompt("Enter label:");
+                if (text) {
+                    ctx.fillStyle = brushColor;
+                    ctx.font = "16px Arial";
+                    ctx.fillText(text, pos.x, pos.y);
+                }
+                return;
+            }
+
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function draw(e) {
+            if (!drawing) return;
+
+            if (!isPencil(e) && !allowFinger) return;
+
+            e.preventDefault();
+
+            const pos = getPos(e);
+
+            if (tool === "pen") {
+                ctx.strokeStyle = brushColor;
+
+                // 🔥 PRESSURE SENSITIVITY (Apple Pencil)
+                const pressure = e.pressure || 0.5;
+                ctx.lineWidth = brushSize * (pressure * 2);
+
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+            }
+        }
+
+        function endDraw(e) {
+            if (!drawing) return;
+
+            if (!isPencil(e) && !allowFinger) return;
+
+            e.preventDefault();
+            document.body.style.overflow = "";
+
+            drawing = false;
+
+            if (tool === "arrow") {
+                const pos = getPos(e);
+                drawArrow(startX, startY, pos.x, pos.y);
+            }
+        }
+
+        // 🔥 DRAW ARROW
+        function drawArrow(x1, y1, x2, y2) {
+            const headlen = 10;
+
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const angle = Math.atan2(dy, dx);
+
+            ctx.strokeStyle = brushColor;
+            ctx.lineWidth = brushSize;
+
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6),
+                y2 - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6),
+                y2 - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.lineTo(x2, y2);
+            ctx.fillStyle = brushColor;
+            ctx.fill();
+        }
+
+        // 🔥 CLEAR
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // 🔥 SAVE MERGED IMAGE
+        function saveCanvas() {
+            const merged = document.createElement('canvas');
+            const mctx = merged.getContext('2d');
+            const img = document.getElementById('baseImage');
+
+            merged.width = canvas.width;
+            merged.height = canvas.height;
+
+            mctx.drawImage(img, 0, 0);
+            mctx.drawImage(canvas, 0, 0);
+
+            document.getElementById('canvasImageInput').value = merged.toDataURL("image/png");
+
+            alert("Drawing saved!");
+        }
+
+        // 🔥 TOOL SWITCHERS
+        function setTool(t) {
+            tool = t;
+        }
+
+        function setColor(c) {
+            brushColor = c;
+        }
+
+        function setSize(s) {
+            brushSize = s;
         }
     </script>
 </body>
