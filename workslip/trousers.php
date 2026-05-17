@@ -327,13 +327,6 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="front_length" class="form-control">
                                 <input type="number" step="0.01" name="chest_fit" class="form-control">
                             </div>
-                            <div class="col-md-3">
-                                <h5 class="text-center">Loose</h5>
-                                <input type="number" step="0.01" name="fly_hs" class="form-control" disabled>
-                                <input type="number" step="0.01" name="side_pocket_hs" class="form-control" disabled>
-                                <input type="number" step="0.01" name="side_seams_hs" class="form-control" disabled>
-                                <input type="number" step="0.01" name="pocket_pull" class="form-control">
-                            </div>
 
                             <div class="row g-3 d-flex">
                                 <div class="col-12">
