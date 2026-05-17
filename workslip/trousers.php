@@ -373,8 +373,6 @@ if (isset($_POST['submit'])) {
                                     <h6 class="mt-auto mb-auto">Knee</h6>
                                     <h6 class="mt-auto mb-auto">Bottom</h6>
                                     <h6 class="mt-auto mb-auto">Crotch</h6>
-                                    <h6 class="mt-auto mb-auto">Erect</h6>
-                                    <h6 class="mt-auto mb-auto">Hunch</h6>
                                 </div>
                                 <div class="col-md-3">
                                     <h5 class="text-center">Fit</h5>
@@ -386,13 +384,9 @@ if (isset($_POST['submit'])) {
                                     <input type="number" step="0.01" name="knee" class="form-control">
                                     <input type="number" step="0.01" name="bottom" class="form-control">
                                     <input type="number" step="0.01" name="crotch" class="form-control">
-                                    <input type="number" step="0.01" name="erect" class="form-control">
-                                    <input type="number" step="0.01" name="hunch" class="form-control">
                                 </div>
                                 <div class="col-md-3">
                                     <h5 class="text-center">X</h5>
-                                    <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                    <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                     <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                     <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                     <input type="text" name="" class="form-control text-center" value="X" disabled="">
@@ -412,12 +406,11 @@ if (isset($_POST['submit'])) {
                                     <input type="number" step="0.01" name="knee" class="form-control" disabled>
                                     <input type="number" step="0.01" name="bottom" class="form-control" disabled>
                                     <input type="number" step="0.01" name="crotch" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="erect" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="hunch" class="form-control" disabled>
                                 </div>
 
                                 <div class="row g-3 d-flex">
-                                    <div class="col-6"><label>Position on Waist</label>
+                                    <div class="col-6">
+                                        <label>Position on Waist</label>
                                         <select name="position_on_waist" class="form-control">
                                             <option value="Not Stated" disabled selected>Not Stated</option>
                                             <option value="Front High">Front High</option>
@@ -429,15 +422,22 @@ if (isset($_POST['submit'])) {
                                         <input type="number" step="0.01" name="corpulent" class="form-control" disabled>
                                     </div>
                                     <div class="col-6">
-                                        <label>Cuff Type</label>
-                                        <select name="cuff_type" class="form-select">
-                                            <option value="Single">Single</option>
-                                            <option value="Double">Double</option>
+                                        <label>Seating Type</label>
+                                        <select name="seating_type" class="form-control">
+                                            <option value="Not Stated" disabled selected>Not Stated</option>
+                                            <option value="Prom Seat">Prom Seat</option>
+                                            <option value="Hollow Back Waist">Hollow Back Waist</option>
+                                            <option value="Flat Seat">Flat Seat</option>
                                         </select>
                                     </div>
-                                    <div class="col-6">
-                                        <label>Cuff Width</label>
-                                        <input type="number" step="0.01" name="cuff_width" class="form-control">
+                                    <div class="col-6"><label>Turn Up</label>
+                                        <select name="turn_up" class="form-select">
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4"><label>Turn Up Length</label>
+                                        <input type="number" step="0.01" name="turn_up_length" class="form-control">
                                     </div>
                                     <div class="col-12">
                                         <label>Cleaning Type</label>
