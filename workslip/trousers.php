@@ -280,13 +280,9 @@ if (isset($_POST['submit'])) {
                         <label>Tailor</label>
                         <input name="tailor_name" class="form-control" placeholder="Enter name">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label>Quantity</label>
                         <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['quantity']) ?>" disabled>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Fitting Date</label>
-                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date']) ?>" disabled>
                     </div>
                     <div class="col-md-2">
                         <label>Gender</label>
@@ -295,13 +291,9 @@ if (isset($_POST['submit'])) {
                             <option value="Female">Female</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <label>Fabric Dir.</label>
-                        <select name="fabric_direction" class="form-select" rows="4">
-                            <option value="No Direction">No Direction</option>
-                            <option value="Vertical">Vertical</option>
-                            <option value="Horizontal">Horizontal</option>
-                        </select>
+                    <div class="col-md-4">
+                        <label>Fitting Date</label>
+                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date']) ?>" disabled>
                     </div>
                 </div>
             </div>
