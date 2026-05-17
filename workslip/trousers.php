@@ -306,6 +306,81 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
 
+            <div class="form-section shadow-sm">
+                <!--<div class="section-title"><i class="fa-solid fa-user-tie"></i> Personnel & Reference</div>-->
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label>placeholder</label>
+                        <select name="manufacturer" class="form-select" disabled="">
+                            <option value="Demak Factory">Demak Factory</option>
+                            <option value="Fabrica">Fabrica</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Manufacturer</label>
+                        <select name="manufacturer" class="form-select">
+                            <option value="Demak Factory">Demak Factory</option>
+                            <option value="Fabrica">Fabrica</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="align-items-center text-center justify-content-between m-4">MUST</h3>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label>Fabric Name</label>
+                        <input name="fabric_name" class="form-control" value="<?php echo htmlspecialchars($details['fabric_name']) ?>" disabled>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Salesman</label>
+                        <select name="salesman_name" class="form-select">
+                            <option value="Razak">Razak</option>
+                            <option value="Hamidah">Hamidah</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Delivery Date</label>
+                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date']) ?>" disabled>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-2">
+                        <label>Cutter</label>
+                        <input name="cutter_name" class="form-control" placeholder="Enter name">
+                    </div>
+                    <div class="col-md-2">
+                        <label>Tailor</label>
+                        <input name="tailor_name" class="form-control" placeholder="Enter name">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Quantity</label>
+                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['quantity']) ?>" disabled>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Fitting Date</label>
+                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date']) ?>" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Gender</label>
+                        <select name="gender" class="form-select">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Fabric Dir.</label>
+                        <select name="fabric_direction" class="form-select" rows="4">
+                            <option value="No Direction">No Direction</option>
+                            <option value="Vertical">Vertical</option>
+                            <option value="Horizontal">Horizontal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
 
 
 
