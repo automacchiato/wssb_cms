@@ -307,7 +307,7 @@ if (isset($_POST['submit'])) {
             </div>
 
             <div class="row g-4">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="form-section shadow-sm h-100">
                         <div class="section-title"><i class="fa-solid fa-shirt"></i>Hand Stitch</div>
                         <div class="row g-2 d-flex">
@@ -330,10 +330,6 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                 </div>
-
-
-
-
 
                 <div class="form-section shadow-sm">
                     <div class="section-title"><i class="fa-solid fa-ruler-combined"></i> Core Measurements (Inches)</div>
