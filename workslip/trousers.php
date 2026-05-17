@@ -307,7 +307,7 @@ if (isset($_POST['submit'])) {
             </div>
 
             <div class="row g-4">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-section shadow-sm h-100">
                         <div class="section-title"><i class="fa-solid fa-shirt"></i>Hand Stitch</div>
                         <div class="row g-3 d-flex">
