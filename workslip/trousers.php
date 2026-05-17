@@ -367,12 +367,12 @@ if (isset($_POST['submit'])) {
                                     <h5>Item</h5>
                                     <h6 class="mt-auto mb-auto">Waist</h6>
                                     <h6 class="mt-auto mb-auto">Hip</h6>
-                                    <h6 class="mt-auto mb-auto">Shoulder</h6>
-                                    <h6 class="mt-auto mb-auto">Sleeve Length</h6>
-                                    <h6 class="mt-auto mb-auto">Arm Length</h6>
-                                    <h6 class="mt-auto mb-auto">Elbow Length</h6>
-                                    <h6 class="mt-auto mb-auto">Cuff</h6>
-                                    <h6 class="mt-auto mb-auto">Arm Hole</h6>
+                                    <h6 class="mt-auto mb-auto">Top Hip</h6>
+                                    <h6 class="mt-auto mb-auto">Length</h6>
+                                    <h6 class="mt-auto mb-auto">Thigh</h6>
+                                    <h6 class="mt-auto mb-auto">Knee</h6>
+                                    <h6 class="mt-auto mb-auto">Bottom</h6>
+                                    <h6 class="mt-auto mb-auto">Crotch</h6>
                                     <h6 class="mt-auto mb-auto">Erect</h6>
                                     <h6 class="mt-auto mb-auto">Hunch</h6>
                                 </div>
@@ -380,12 +380,12 @@ if (isset($_POST['submit'])) {
                                     <h5 class="text-center">Fit</h5>
                                     <input type="number" step="0.01" name="waist_fit" class="form-control">
                                     <input type="number" step="0.01" name="hip_fit" class="form-control">
-                                    <input type="number" step="0.01" name="shoulder" class="form-control">
-                                    <input type="number" step="0.01" name="sleeve_length" class="form-control">
-                                    <input type="number" step="0.01" name="arm_length" class="form-control">
-                                    <input type="number" step="0.01" name="elbow_length" class="form-control">
-                                    <input type="number" step="0.01" name="cuff_length" class="form-control">
-                                    <input type="number" step="0.01" name="armhole_length" class="form-control">
+                                    <input type="number" step="0.01" name="top_hip_fit" class="form-control">
+                                    <input type="number" step="0.01" name="length" class="form-control">
+                                    <input type="number" step="0.01" name="thigh" class="form-control">
+                                    <input type="number" step="0.01" name="knee" class="form-control">
+                                    <input type="number" step="0.01" name="bottom" class="form-control">
+                                    <input type="number" step="0.01" name="crotch" class="form-control">
                                     <input type="number" step="0.01" name="erect" class="form-control">
                                     <input type="number" step="0.01" name="hunch" class="form-control">
                                 </div>
@@ -406,12 +406,12 @@ if (isset($_POST['submit'])) {
                                     <h5 class="text-center">Loose</h5>
                                     <input type="number" step="0.01" name="waist_loose" class="form-control">
                                     <input type="number" step="0.01" name="hip_loose" class="form-control">
-                                    <input type="number" step="0.01" name="shoulder" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="sleeve_length" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="arm_length" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="elbow_length" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="cuff_length" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="armhole_length" class="form-control" disabled>
+                                    <input type="number" step="0.01" name="top_hit_loose" class="form-control" disabled>
+                                    <input type="number" step="0.01" name="length" class="form-control" disabled>
+                                    <input type="number" step="0.01" name="thigh" class="form-control" disabled>
+                                    <input type="number" step="0.01" name="knee" class="form-control" disabled>
+                                    <input type="number" step="0.01" name="bottom" class="form-control" disabled>
+                                    <input type="number" step="0.01" name="crotch" class="form-control" disabled>
                                     <input type="number" step="0.01" name="erect" class="form-control" disabled>
                                     <input type="number" step="0.01" name="hunch" class="form-control" disabled>
                                 </div>
