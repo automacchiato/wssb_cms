@@ -298,7 +298,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
 
-            <div class="row g-4">
+            <div class="row g-3">
                 <div class="col-md-3">
                     <div class="form-section shadow-sm h-100">
                         <div class="section-title"><i class="fa-solid fa-shirt"></i>Hand Stitch</div>
@@ -372,7 +372,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
 
-                <div class="row g-4">
+                <div class="row g-3">
                     <div class="col-md-5">
                         <div class="form-section shadow-sm h-100">
                             <!-- <div class="section-title"><i class="fa-solid fa-shirt"></i> Collar & Cuff</div> -->
