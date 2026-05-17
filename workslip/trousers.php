@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
 
         $data = base64_decode($img);
 
-        $fileName = "shirt_canvas_" . time() . "_" . $item_id . ".png";
+        $fileName = "trousers_canvas_" . time() . "_" . $item_id . ".png";
         $filePath = '../uploads/drawings/' . $fileName;
 
         file_put_contents($filePath, $data);
@@ -295,10 +295,6 @@ if (isset($_POST['submit'])) {
                             <option value="Female">Female</option>
                         </select>
                     </div>
-                    <div class="col-md-8">
-                        <label>Special Instructions</label>
-                        <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
-                    </div>
                     <div class="col-md-2">
                         <label>Fabric Dir.</label>
                         <select name="fabric_direction" class="form-select" rows="4">
@@ -350,7 +346,10 @@ if (isset($_POST['submit'])) {
                             <option value="4">4</option>
                         </select>
                     </div>
-
+                    <div class="col-md-8">
+                        <label>Special Instructions</label>
+                        <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
+                    </div>
                     <div class="col-md-2 col-6">
                         <label>Waist (Fit)</label>
                         <input type="number" step="0.01" name="waist_fit" class="form-control">
