@@ -479,14 +479,14 @@ if (isset($_POST['submit'])) {
                             <div class="row g-3 d-flex justify-content-center">
                                 <div class="section-title"><i class="fa-solid fa-person"></i>Sketch or Upload</div>
                                 <div class="col-12">
-                                    <div class="col-6"><label>Right Pocket</label>
-                                        <select name="right_pocket" class="form-control">
+                                    <div class="col-5"><label>Right Pocket</label>
+                                        <select name="right_pocket" class="form-select">
                                             <option value="Yes" selected>Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </div>
-                                    <div class="col-6"><label>Left Pocket</label>
-                                        <select name="left_pocket" class="form-control">
+                                    <div class="col-5"><label>Left Pocket</label>
+                                        <select name="left_pocket" class="form-select">
                                             <option value="Yes" selected>Yes</option>
                                             <option value="No">No</option>
                                         </select>
