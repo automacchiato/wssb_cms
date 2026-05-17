@@ -326,50 +326,13 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="back_length" class="form-control">
                                 <input type="number" step="0.01" name="front_length" class="form-control">
                                 <input type="number" step="0.01" name="chest_fit" class="form-control">
-                                <input type="number" step="0.01" name="waist_fit" class="form-control">
-                                <input type="number" step="0.01" name="hip_fit" class="form-control">
-                                <input type="number" step="0.01" name="shoulder" class="form-control">
-                                <input type="number" step="0.01" name="sleeve_length" class="form-control">
-                                <input type="number" step="0.01" name="arm_length" class="form-control">
-                                <input type="number" step="0.01" name="elbow_length" class="form-control">
-                                <input type="number" step="0.01" name="cuff_length" class="form-control">
-                                <input type="number" step="0.01" name="armhole_length" class="form-control">
-                                <input type="number" step="0.01" name="erect" class="form-control">
-                                <input type="number" step="0.01" name="hunch" class="form-control">
-                            </div>
-                            <div class="col-md-3">
-                                <h5 class="text-center">X</h5>
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
                             </div>
                             <div class="col-md-3">
                                 <h5 class="text-center">Loose</h5>
-                                <input type="number" step="0.01" name="collar_length" class="form-control" disabled>
-                                <input type="number" step="0.01" name="back_length" class="form-control" disabled>
-                                <input type="number" step="0.01" name="front_length" class="form-control" disabled>
-                                <input type="number" step="0.01" name="chest_loose" class="form-control">
-                                <input type="number" step="0.01" name="waist_loose" class="form-control">
-                                <input type="number" step="0.01" name="hip_loose" class="form-control">
-                                <input type="number" step="0.01" name="shoulder" class="form-control" disabled>
-                                <input type="number" step="0.01" name="sleeve_length" class="form-control" disabled>
-                                <input type="number" step="0.01" name="arm_length" class="form-control" disabled>
-                                <input type="number" step="0.01" name="elbow_length" class="form-control" disabled>
-                                <input type="number" step="0.01" name="cuff_length" class="form-control" disabled>
-                                <input type="number" step="0.01" name="armhole_length" class="form-control" disabled>
-                                <input type="number" step="0.01" name="erect" class="form-control" disabled>
-                                <input type="number" step="0.01" name="hunch" class="form-control" disabled>
+                                <input type="number" step="0.01" name="fly_hs" class="form-control" disabled>
+                                <input type="number" step="0.01" name="side_pocket_hs" class="form-control" disabled>
+                                <input type="number" step="0.01" name="side_seams_hs" class="form-control" disabled>
+                                <input type="number" step="0.01" name="pocket_pull" class="form-control">
                             </div>
 
                             <div class="row g-3 d-flex">
