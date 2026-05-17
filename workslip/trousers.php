@@ -549,19 +549,18 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <label>Front Cutting</label>
-                                    <select name="front_cutting" class="form-select">
-                                        <option value="Straight">Straight</option>
-                                        <option value="Rounded">Rounded</option>
+                                    <label>Lining Type</label>
+                                    <select name="lining_type" class="form-select">
+                                        <option value="Not Stated" disabled selected>Not Stated</option>
+                                        <option value="Half Lined Front Only">Half Lined Front Only</option>
+                                        <option value="Front Back 1/2 Lining">Front Back 1/2 Lining</option>
+                                        <option value="Front Full Length Lined">Front Full Length Lined</option>
+                                        <option value="Trousers Full Lined">Trousers Full Lined</option>
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <label>Placket Type</label>
-                                    <select name="placket_type" class="form-select">
-                                        <option value="Hidden Button">Hidden Button</option>
-                                        <option value="Live Placket">Live Placket</option>
-                                        <option value="Front Placket">Front Placket</option>
-                                    </select>
+                                    <label>Bottom Init.</label>
+                                    <input name="bottom_initial" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -626,16 +625,6 @@ if (isset($_POST['submit'])) {
                                 <div class="col-4"><label>Turn Up Length</label>
                                     <input type="number" step="0.01" name="turn_up_length" class="form-control">
                                 </div>
-
-                                <div class="col-6"><label>Lining Type</label>
-                                    <select name="lining_type" class="form-control">
-                                        <option value="Not Stated" disabled selected>Not Stated</option>
-                                        <option value="Half Lined Front Only">Half Lined Front Only</option>
-                                        <option value="Front Back 1/2 Lining">Front Back 1/2 Lining</option>
-                                        <option value="Front Full Length Lined">Front Full Length Lined</option>
-                                        <option value="Trousers Full Lined">Trousers Full Lined</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -658,7 +647,6 @@ if (isset($_POST['submit'])) {
                                 </select>
                             </div>
                             <div class="row g-2">
-                                <div class="col-6"><label>Bottom Init.</label><input name="bottom_initial" class="form-control"></div>
                             </div>
                         </div>
                     </div>
