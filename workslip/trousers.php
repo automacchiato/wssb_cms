@@ -361,14 +361,10 @@ if (isset($_POST['submit'])) {
                 <div class="row g-4">
                     <div class="col-md-5">
                         <div class="form-section shadow-sm h-100">
-                            <!--<div class="section-title"><i class="fa-solid fa-shirt"></i> Collar & Cuff</div>-->
+                            <!-- <div class="section-title"><i class="fa-solid fa-shirt"></i> Collar & Cuff</div> -->
                             <div class="row g-3 d-flex justify-content-center">
                                 <div class="col-md-3 d-flex flex-column justify-content-center text-center">
                                     <h5>Item</h5>
-                                    <h6>Collar<br>Length</h6>
-                                    <h6>Back<br>Length</h6>
-                                    <h6>Front<br>Length</h6>
-                                    <h6 class="mt-auto mb-auto">Chest</h6>
                                     <h6 class="mt-auto mb-auto">Waist</h6>
                                     <h6 class="mt-auto mb-auto">Hip</h6>
                                     <h6 class="mt-auto mb-auto">Shoulder</h6>
@@ -382,10 +378,6 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="col-md-3">
                                     <h5 class="text-center">Fit</h5>
-                                    <input type="number" step="0.01" name="collar_length" class="form-control">
-                                    <input type="number" step="0.01" name="back_length" class="form-control">
-                                    <input type="number" step="0.01" name="front_length" class="form-control">
-                                    <input type="number" step="0.01" name="chest_fit" class="form-control">
                                     <input type="number" step="0.01" name="waist_fit" class="form-control">
                                     <input type="number" step="0.01" name="hip_fit" class="form-control">
                                     <input type="number" step="0.01" name="shoulder" class="form-control">
@@ -409,17 +401,9 @@ if (isset($_POST['submit'])) {
                                     <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                     <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                     <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                    <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                    <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                    <input type="text" name="" class="form-control text-center" value="X" disabled="">
-                                    <input type="text" name="" class="form-control text-center" value="X" disabled="">
                                 </div>
                                 <div class="col-md-3">
                                     <h5 class="text-center">Loose</h5>
-                                    <input type="number" step="0.01" name="collar_length" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="back_length" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="front_length" class="form-control" disabled>
-                                    <input type="number" step="0.01" name="chest_loose" class="form-control">
                                     <input type="number" step="0.01" name="waist_loose" class="form-control">
                                     <input type="number" step="0.01" name="hip_loose" class="form-control">
                                     <input type="number" step="0.01" name="shoulder" class="form-control" disabled>
