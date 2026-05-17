@@ -493,17 +493,6 @@ if (isset($_POST['submit'])) {
                                     </select>
                                 </div>
                             </div>
-
-                            <!--<div class="col-4">-->
-                            <!--    <label>Cuff Type</label>-->
-                            <!--    <select name="cuff_type" class="form-select">-->
-                            <!--        <option value="No Cuff">No Cuff</option>-->
-                            <!--        <option value="Single Cuff">Single Cuff</option>-->
-                            <!--        <option value="Double Cuff">Double Cuff</option>-->
-                            <!--    </select>-->
-                            <!--</div>-->
-                            <!--<div class="col-4"><label>Cuff Width</label><input type="number" step="0.01" name="cuff_width" class="form-control"></div>-->
-                            <!--<div class="col-4"><label>Cuff Length</label><input type="number" step="0.01" name="cuff_length" class="form-control"></div>-->
                         </div>
                     </div>
                 </div>

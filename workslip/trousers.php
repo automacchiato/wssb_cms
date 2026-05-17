@@ -306,313 +306,348 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
 
-            <div class="form-section shadow-sm">
-                <!--<div class="section-title"><i class="fa-solid fa-user-tie"></i> Personnel & Reference</div>-->
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label>placeholder</label>
-                        <select name="manufacturer" class="form-select" disabled="">
-                            <option value="Demak Factory">Demak Factory</option>
-                            <option value="Fabrica">Fabrica</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Manufacturer</label>
-                        <select name="manufacturer" class="form-select">
-                            <option value="Demak Factory">Demak Factory</option>
-                            <option value="Fabrica">Fabrica</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <h3 class="align-items-center text-center justify-content-between m-4">MUST</h3>
-                    </div>
-                </div>
-
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label>Fabric Name</label>
-                        <input name="fabric_name" class="form-control" value="<?php echo htmlspecialchars($details['fabric_name']) ?>" disabled>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Salesman</label>
-                        <select name="salesman_name" class="form-select">
-                            <option value="Razak">Razak</option>
-                            <option value="Hamidah">Hamidah</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Delivery Date</label>
-                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date']) ?>" disabled>
-                    </div>
-                </div>
-
-                <div class="row g-3">
-                    <div class="col-md-2">
-                        <label>Cutter</label>
-                        <input name="cutter_name" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="col-md-2">
-                        <label>Tailor</label>
-                        <input name="tailor_name" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="col-md-4">
-                        <label>Quantity</label>
-                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['quantity']) ?>" disabled>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Fitting Date</label>
-                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date']) ?>" disabled>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Gender</label>
-                        <select name="gender" class="form-select">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Fabric Dir.</label>
-                        <select name="fabric_direction" class="form-select" rows="4">
-                            <option value="No Direction">No Direction</option>
-                            <option value="Vertical">Vertical</option>
-                            <option value="Horizontal">Horizontal</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-            <div class="form-section shadow-sm">
-                <div class="section-title"><i class="fa-solid fa-ruler-combined"></i> Core Measurements (Inches)</div>
-                <div class="row g-3">
-                    <div class="col-md-2 col-6">
-                        <label>Fly Stitch</label>
-                        <select name="fly_hs" class="form-control" required>
-                            <option value="Yes">Yes</option>
-                            <option value="No" selected>No</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Side Pocket Hidden Stitch</label>
-                        <select name="side_pocket_hs" class="form-control" required>
-                            <option value="Yes">Yes</option>
-                            <option value="No" selected>No</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Side Seams Hidden Stitch</label>
-                        <select name="side_seams_hs" class="form-control" required>
-                            <option value="Yes">Yes</option>
-                            <option value="No" selected>No</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Pocket Pull Stitch</label>
-                        <select name="pocket_pull" class="form-control" required>
-                            <option value="Yes">Yes</option>
-                            <option value="No" selected>No</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Pleat Number</label>
-                        <select name="pleat_num" class="form-control" required>
-                            <option value="0" selected>0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-                    <div class="col-md-8">
-                        <label>Special Instructions</label>
-                        <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Waist (Fit)</label>
-                        <input type="number" step="0.01" name="waist_fit" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Waist (Loose)</label>
-                        <input type="number" step="0.01" name="waist_loose" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Hip (Fit)</label>
-                        <input type="number" step="0.01" name="hip_fit" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Hip (Loose)</label>
-                        <input type="number" step="0.01" name="hip_loose" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Top Hip (Fit)</label>
-                        <input type="number" step="0.01" name="top_hip_fit" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Top Hip (Loose)</label>
-                        <input type="number" step="0.01" name="top_hip_loose" class="form-control">
-                    </div>
-
-                    <div class="col-md-2 col-6">
-                        <label>Length</label>
-                        <input type="number" step="0.01" name="length" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Thigh</label>
-                        <input type="number" step="0.01" name="thigh" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Knee</label>
-                        <input type="number" step="0.01" name="knee" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Bottom</label>
-                        <input type="number" step="0.01" name="bottom" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Crotch</label>
-                        <input type="number" step="0.01" name="crotch" class="form-control">
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <label>Corpulent</label>
-                        <input type="number" step="0.01" name="corpulent" class="form-control">
-                    </div>
-                </div>
-            </div>
-
             <div class="row g-4">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-section shadow-sm h-100">
-                        <div class="section-title"><i class="fa-solid fa-shirt"></i>Pocket Details</div>
-                        <div class="row g-3">
-                            <div class="col-4"><label>Inside Pocket Num</label>
-                                <input type="number" step="0.01" name="inside_pocket_num" class="form-control">
+                        <!--<div class="section-title"><i class="fa-solid fa-shirt"></i> Collar & Cuff</div>-->
+                        <div class="row g-3 d-flex justify-content-center">
+                            <div class="col-md-3 d-flex flex-column justify-content-center text-center">
+                                <h5>Item</h5>
+                                <h6>Collar<br>Length</h6>
+                                <h6>Back<br>Length</h6>
+                                <h6>Front<br>Length</h6>
+                                <h6 class="mt-auto mb-auto">Chest</h6>
+                                <h6 class="mt-auto mb-auto">Waist</h6>
+                                <h6 class="mt-auto mb-auto">Hip</h6>
+                                <h6 class="mt-auto mb-auto">Shoulder</h6>
+                                <h6 class="mt-auto mb-auto">Sleeve Length</h6>
+                                <h6 class="mt-auto mb-auto">Arm Length</h6>
+                                <h6 class="mt-auto mb-auto">Elbow Length</h6>
+                                <h6 class="mt-auto mb-auto">Cuff</h6>
+                                <h6 class="mt-auto mb-auto">Arm Hole</h6>
+                                <h6 class="mt-auto mb-auto">Erect</h6>
+                                <h6 class="mt-auto mb-auto">Hunch</h6>
                             </div>
-                            <div class="col-4"><label>Inside Pocket Width</label>
-                                <input type="number" step="0.01" name="inside_pocket_width" class="form-control">
+                            <div class="col-md-3">
+                                <h5 class="text-center">Fit</h5>
+                                <input type="number" step="0.01" name="collar_length" class="form-control">
+                                <input type="number" step="0.01" name="back_length" class="form-control">
+                                <input type="number" step="0.01" name="front_length" class="form-control">
+                                <input type="number" step="0.01" name="chest_fit" class="form-control">
+                                <input type="number" step="0.01" name="waist_fit" class="form-control">
+                                <input type="number" step="0.01" name="hip_fit" class="form-control">
+                                <input type="number" step="0.01" name="shoulder" class="form-control">
+                                <input type="number" step="0.01" name="sleeve_length" class="form-control">
+                                <input type="number" step="0.01" name="arm_length" class="form-control">
+                                <input type="number" step="0.01" name="elbow_length" class="form-control">
+                                <input type="number" step="0.01" name="cuff_length" class="form-control">
+                                <input type="number" step="0.01" name="armhole_length" class="form-control">
+                                <input type="number" step="0.01" name="erect" class="form-control">
+                                <input type="number" step="0.01" name="hunch" class="form-control">
                             </div>
-                            <div class="col-4"><label>Inside Pocket Length</label>
-                                <input type="number" step="0.01" name="inside_pocket_length" class="form-control">
+                            <div class="col-md-3">
+                                <h5 class="text-center">X</h5>
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                                <input type="text" name="" class="form-control text-center" value="X" disabled="">
+                            </div>
+                            <div class="col-md-3">
+                                <h5 class="text-center">Loose</h5>
+                                <input type="number" step="0.01" name="collar_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="back_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="front_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="chest_loose" class="form-control">
+                                <input type="number" step="0.01" name="waist_loose" class="form-control">
+                                <input type="number" step="0.01" name="hip_loose" class="form-control">
+                                <input type="number" step="0.01" name="shoulder" class="form-control" disabled>
+                                <input type="number" step="0.01" name="sleeve_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="arm_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="elbow_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="cuff_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="armhole_length" class="form-control" disabled>
+                                <input type="number" step="0.01" name="erect" class="form-control" disabled>
+                                <input type="number" step="0.01" name="hunch" class="form-control" disabled>
                             </div>
 
-                            <div class="col-6"><label>Right Pocket</label>
-                                <select name="right_pocket" class="form-control">
-                                    <option value="Yes" selected>Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            <div class="col-6"><label>Left Pocket</label>
-                                <select name="left_pocket" class="form-control">
-                                    <option value="Yes" selected>Yes</option>
-                                    <option value="No">No</option>
-                                </select>
+                            <div class="row g-3 d-flex">
+                                <div class="col-12">
+                                    <label>Shoulder Type</label>
+                                    <select name="shoulder_type" class="form-select">
+                                        <option value="Square">Square</option>
+                                        <option value="Drop">Drop</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label>Corpulent</label>
+                                    <input type="number" step="0.01" name="corpulent" class="form-control" disabled>
+                                </div>
+                                <div class="col-6">
+                                    <label>Cuff Type</label>
+                                    <select name="cuff_type" class="form-select">
+                                        <option value="Single">Single</option>
+                                        <option value="Double">Double</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label>Cuff Width</label>
+                                    <input type="number" step="0.01" name="cuff_width" class="form-control">
+                                </div>
+                                <div class="col-12">
+                                    <label>Cleaning Type</label>
+                                    <select name="cleaning_type" class="form-select text-danger fw-bold">
+                                        <option value="No Restriction">No Restriction</option>
+                                        <option value="Dry Clean Only">Dry Clean Only</option>
+                                        <option value="Hand Wash Only">Hand Wash Only</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="form-section shadow-sm h-100">
-                        <div class="section-title"><i class="fa-solid fa-person"></i>Body Posture</div>
-                        <div class="row g-3">
-                            <div class="col-6"><label>Position on Waist</label>
-                                <select name="position_on_waist" class="form-control">
-                                    <option value="Not Stated" disabled selected>Not Stated</option>
-                                    <option value="Front High">Front High</option>
-                                    <option value="Front Cut Low">Front Cut Low</option>
-                                </select>
-                            </div>
-                            <div class="col-6"><label>Seating Type</label>
-                                <select name="position_on_waist" class="form-control">
-                                    <option value="Not Stated" disabled selected>Not Stated</option>
-                                    <option value="Front High">Front High</option>
-                                    <option value="Front Cut Low">Front Cut Low</option>
-                                </select>
-                            </div>
-                            <div class="col-6"><label>Turn Up</label>
-                                <select name="turn_up" class="form-select">
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            <div class="col-4"><label>Turn Up Length</label>
-                                <input type="number" step="0.01" name="turn_up_length" class="form-control">
-                            </div>
-                            <div class="col-4"><label>Loop Number</label>
-                                <input type="number" step="0.01" name="loop_num" class="form-control">
-                            </div>
-                            <div class="col-4"><label>Loop Width</label>
-                                <input type="number" step="0.01" name="loop_width" class="form-control">
-                            </div>
-                            <div class="col-4"><label>Loop Length</label>
-                                <input type="number" step="0.01" name="loop_length" class="form-control">
-                            </div>
-                            <div class="col-6"><label>Lining Type</label>
-                                <select name="lining_type" class="form-control">
-                                    <option value="Not Stated" disabled selected>Not Stated</option>
-                                    <option value="Half Lined Front Only">Half Lined Front Only</option>
-                                    <option value="Front Back 1/2 Lining">Front Back 1/2 Lining</option>
-                                    <option value="Front Full Length Lined">Front Full Length Lined</option>
-                                    <option value="Trousers Full Lined">Trousers Full Lined</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="form-section shadow-sm">
-                <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
-                        <div class="d-grid gap-2 d-md-block">
-                            <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
 
-                            <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
-                                <i class="fa-solid fa-camera"></i> Take Photo / Upload
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
-                            <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
-                            <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="form-section shadow-sm mt-4">
-                <div class="section-title"><i class="fa-solid fa-comment-dots"></i> Instructions & Finishing</div>
-                <div class="row g-3">
-                    <div class="col-md-8">
-                        <label>Special Instructions</label>
-                        <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label>Cleaning Type</label>
-                            <select name="cleaning_type" class="form-select text-danger fw-bold">
-                                <option value="No Restriction">No Restriction</option>
-                                <option value="Dry Clean Only">Dry Clean Only</option>
-                                <option value="Hand Wash Only">Hand Wash Only</option>
+
+                <div class="form-section shadow-sm">
+                    <div class="section-title"><i class="fa-solid fa-ruler-combined"></i> Core Measurements (Inches)</div>
+                    <div class="row g-3">
+                        <div class="col-md-2 col-6">
+                            <label>Fly Stitch</label>
+                            <select name="fly_hs" class="form-control" required>
+                                <option value="Yes">Yes</option>
+                                <option value="No" selected>No</option>
                             </select>
                         </div>
-                        <div class="row g-2">
-                            <div class="col-6"><label>Bottom Init.</label><input name="bottom_initial" class="form-control"></div>
+                        <div class="col-md-2 col-6">
+                            <label>Side Pocket Hidden Stitch</label>
+                            <select name="side_pocket_hs" class="form-control" required>
+                                <option value="Yes">Yes</option>
+                                <option value="No" selected>No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Side Seams Hidden Stitch</label>
+                            <select name="side_seams_hs" class="form-control" required>
+                                <option value="Yes">Yes</option>
+                                <option value="No" selected>No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Pocket Pull Stitch</label>
+                            <select name="pocket_pull" class="form-control" required>
+                                <option value="Yes">Yes</option>
+                                <option value="No" selected>No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Pleat Number</label>
+                            <select name="pleat_num" class="form-control" required>
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <label>Special Instructions</label>
+                            <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Waist (Fit)</label>
+                            <input type="number" step="0.01" name="waist_fit" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Waist (Loose)</label>
+                            <input type="number" step="0.01" name="waist_loose" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Hip (Fit)</label>
+                            <input type="number" step="0.01" name="hip_fit" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Hip (Loose)</label>
+                            <input type="number" step="0.01" name="hip_loose" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Top Hip (Fit)</label>
+                            <input type="number" step="0.01" name="top_hip_fit" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Top Hip (Loose)</label>
+                            <input type="number" step="0.01" name="top_hip_loose" class="form-control">
+                        </div>
+
+                        <div class="col-md-2 col-6">
+                            <label>Length</label>
+                            <input type="number" step="0.01" name="length" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Thigh</label>
+                            <input type="number" step="0.01" name="thigh" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Knee</label>
+                            <input type="number" step="0.01" name="knee" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Bottom</label>
+                            <input type="number" step="0.01" name="bottom" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Crotch</label>
+                            <input type="number" step="0.01" name="crotch" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label>Corpulent</label>
+                            <input type="number" step="0.01" name="corpulent" class="form-control">
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="sticky-bottom bg-light p-3 border-top d-flex justify-content-end gap-2 shadow">
-                <button type="submit" name="submit" class="btn btn-primary btn-lg px-5">
-                    <i class="fa-solid fa-floppy-disk"></i> Save Workslip
-                </button>
-            </div>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="form-section shadow-sm h-100">
+                            <div class="section-title"><i class="fa-solid fa-shirt"></i>Pocket Details</div>
+                            <div class="row g-3">
+                                <div class="col-4"><label>Inside Pocket Num</label>
+                                    <input type="number" step="0.01" name="inside_pocket_num" class="form-control">
+                                </div>
+                                <div class="col-4"><label>Inside Pocket Width</label>
+                                    <input type="number" step="0.01" name="inside_pocket_width" class="form-control">
+                                </div>
+                                <div class="col-4"><label>Inside Pocket Length</label>
+                                    <input type="number" step="0.01" name="inside_pocket_length" class="form-control">
+                                </div>
+
+                                <div class="col-6"><label>Right Pocket</label>
+                                    <select name="right_pocket" class="form-control">
+                                        <option value="Yes" selected>Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-6"><label>Left Pocket</label>
+                                    <select name="left_pocket" class="form-control">
+                                        <option value="Yes" selected>Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-section shadow-sm h-100">
+                            <div class="section-title"><i class="fa-solid fa-person"></i>Body Posture</div>
+                            <div class="row g-3">
+                                <div class="col-6"><label>Position on Waist</label>
+                                    <select name="position_on_waist" class="form-control">
+                                        <option value="Not Stated" disabled selected>Not Stated</option>
+                                        <option value="Front High">Front High</option>
+                                        <option value="Front Cut Low">Front Cut Low</option>
+                                    </select>
+                                </div>
+                                <div class="col-6"><label>Seating Type</label>
+                                    <select name="position_on_waist" class="form-control">
+                                        <option value="Not Stated" disabled selected>Not Stated</option>
+                                        <option value="Front High">Front High</option>
+                                        <option value="Front Cut Low">Front Cut Low</option>
+                                    </select>
+                                </div>
+                                <div class="col-6"><label>Turn Up</label>
+                                    <select name="turn_up" class="form-select">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-4"><label>Turn Up Length</label>
+                                    <input type="number" step="0.01" name="turn_up_length" class="form-control">
+                                </div>
+                                <div class="col-4"><label>Loop Number</label>
+                                    <input type="number" step="0.01" name="loop_num" class="form-control">
+                                </div>
+                                <div class="col-4"><label>Loop Width</label>
+                                    <input type="number" step="0.01" name="loop_width" class="form-control">
+                                </div>
+                                <div class="col-4"><label>Loop Length</label>
+                                    <input type="number" step="0.01" name="loop_length" class="form-control">
+                                </div>
+                                <div class="col-6"><label>Lining Type</label>
+                                    <select name="lining_type" class="form-control">
+                                        <option value="Not Stated" disabled selected>Not Stated</option>
+                                        <option value="Half Lined Front Only">Half Lined Front Only</option>
+                                        <option value="Front Back 1/2 Lining">Front Back 1/2 Lining</option>
+                                        <option value="Front Full Length Lined">Front Full Length Lined</option>
+                                        <option value="Trousers Full Lined">Trousers Full Lined</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section shadow-sm">
+                    <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
+                            <div class="d-grid gap-2 d-md-block">
+                                <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
+
+                                <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
+                                    <i class="fa-solid fa-camera"></i> Take Photo / Upload
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
+                                <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
+                                <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section shadow-sm mt-4">
+                    <div class="section-title"><i class="fa-solid fa-comment-dots"></i> Instructions & Finishing</div>
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label>Special Instructions</label>
+                            <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label>Cleaning Type</label>
+                                <select name="cleaning_type" class="form-select text-danger fw-bold">
+                                    <option value="No Restriction">No Restriction</option>
+                                    <option value="Dry Clean Only">Dry Clean Only</option>
+                                    <option value="Hand Wash Only">Hand Wash Only</option>
+                                </select>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-6"><label>Bottom Init.</label><input name="bottom_initial" class="form-control"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sticky-bottom bg-light p-3 border-top d-flex justify-content-end gap-2 shadow">
+                    <button type="submit" name="submit" class="btn btn-primary btn-lg px-5">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Workslip
+                    </button>
+                </div>
         </form>
     </div>
 
