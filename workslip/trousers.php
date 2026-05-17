@@ -355,30 +355,6 @@ if (isset($_POST['submit'])) {
                                 <textarea name="special_instructions" class="form-control" rows="6" placeholder="Any special requests..."></textarea>
                             </div>
                         </div>
-                        <div class="row g-3">
-                            <div class="col-4"><label>Inside Pocket Num</label>
-                                <input type="number" step="0.01" name="inside_pocket_num" class="form-control">
-                            </div>
-                            <div class="col-4"><label>Inside Pocket Width</label>
-                                <input type="number" step="0.01" name="inside_pocket_width" class="form-control">
-                            </div>
-                            <div class="col-4"><label>Inside Pocket Length</label>
-                                <input type="number" step="0.01" name="inside_pocket_length" class="form-control">
-                            </div>
-
-                            <div class="col-6"><label>Right Pocket</label>
-                                <select name="right_pocket" class="form-control">
-                                    <option value="Yes" selected>Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            <div class="col-6"><label>Left Pocket</label>
-                                <select name="left_pocket" class="form-control">
-                                    <option value="Yes" selected>Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -481,6 +457,30 @@ if (isset($_POST['submit'])) {
                             <div class="row g-3 d-flex justify-content-center">
                                 <div class="section-title"><i class="fa-solid fa-person"></i>Sketch or Upload</div>
                                 <div class="col-12">
+                                    <div class="row g-3">
+                                        <div class="col-4"><label>Inside Pocket Num</label>
+                                            <input type="number" step="0.01" name="inside_pocket_num" class="form-control">
+                                        </div>
+                                        <div class="col-4"><label>Inside Pocket Width</label>
+                                            <input type="number" step="0.01" name="inside_pocket_width" class="form-control">
+                                        </div>
+                                        <div class="col-4"><label>Inside Pocket Length</label>
+                                            <input type="number" step="0.01" name="inside_pocket_length" class="form-control">
+                                        </div>
+
+                                        <div class="col-6"><label>Right Pocket</label>
+                                            <select name="right_pocket" class="form-control">
+                                                <option value="Yes" selected>Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6"><label>Left Pocket</label>
+                                            <select name="left_pocket" class="form-control">
+                                                <option value="Yes" selected>Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
                                     <div class="d-grid gap-2 d-md-block">
                                         <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
