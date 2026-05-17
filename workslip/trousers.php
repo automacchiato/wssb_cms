@@ -409,9 +409,9 @@ if (isset($_POST['submit'])) {
                                 </div>
 
                                 <div class="row g-3 d-flex">
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <label>Position on Waist</label>
-                                        <select name="position_on_waist" class="form-control">
+                                        <select name="position_on_waist" class="form-select">
                                             <option value="Not Stated" disabled selected>Not Stated</option>
                                             <option value="Front High">Front High</option>
                                             <option value="Front Cut Low">Front Cut Low</option>
@@ -421,9 +421,9 @@ if (isset($_POST['submit'])) {
                                         <label>Corpulent</label>
                                         <input type="number" step="0.01" name="corpulent" class="form-control" disabled>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <label>Seating Type</label>
-                                        <select name="seating_type" class="form-control">
+                                        <select name="seating_type" class="form-select">
                                             <option value="Not Stated" disabled selected>Not Stated</option>
                                             <option value="Prom Seat">Prom Seat</option>
                                             <option value="Hollow Back Waist">Hollow Back Waist</option>
@@ -436,7 +436,7 @@ if (isset($_POST['submit'])) {
                                             <option value="No">No</option>
                                         </select>
                                     </div>
-                                    <div class="col-4"><label>Turn Up Length</label>
+                                    <div class="col-6"><label>Turn Up Length</label>
                                         <input type="number" step="0.01" name="turn_up_length" class="form-control">
                                     </div>
                                     <div class="col-12">
