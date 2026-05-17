@@ -327,39 +327,6 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="front_length" class="form-control">
                                 <input type="number" step="0.01" name="chest_fit" class="form-control">
                             </div>
-
-                            <div class="row g-3 d-flex">
-                                <div class="col-12">
-                                    <label>Shoulder Type</label>
-                                    <select name="shoulder_type" class="form-select">
-                                        <option value="Square">Square</option>
-                                        <option value="Drop">Drop</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label>Corpulent</label>
-                                    <input type="number" step="0.01" name="corpulent" class="form-control" disabled>
-                                </div>
-                                <div class="col-6">
-                                    <label>Cuff Type</label>
-                                    <select name="cuff_type" class="form-select">
-                                        <option value="Single">Single</option>
-                                        <option value="Double">Double</option>
-                                    </select>
-                                </div>
-                                <div class="col-6">
-                                    <label>Cuff Width</label>
-                                    <input type="number" step="0.01" name="cuff_width" class="form-control">
-                                </div>
-                                <div class="col-12">
-                                    <label>Cleaning Type</label>
-                                    <select name="cleaning_type" class="form-select text-danger fw-bold">
-                                        <option value="No Restriction">No Restriction</option>
-                                        <option value="Dry Clean Only">Dry Clean Only</option>
-                                        <option value="Hand Wash Only">Hand Wash Only</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
