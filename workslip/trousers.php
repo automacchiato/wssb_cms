@@ -417,11 +417,11 @@ if (isset($_POST['submit'])) {
                                 </div>
 
                                 <div class="row g-3 d-flex">
-                                    <div class="col-12">
-                                        <label>Shoulder Type</label>
-                                        <select name="shoulder_type" class="form-select">
-                                            <option value="Square">Square</option>
-                                            <option value="Drop">Drop</option>
+                                    <div class="col-6"><label>Position on Waist</label>
+                                        <select name="position_on_waist" class="form-control">
+                                            <option value="Not Stated" disabled selected>Not Stated</option>
+                                            <option value="Front High">Front High</option>
+                                            <option value="Front Cut Low">Front Cut Low</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
