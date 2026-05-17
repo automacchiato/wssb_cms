@@ -202,7 +202,7 @@ if (isset($_POST['submit'])) {
         </div>
     </nav>
 
-    <div class="container mb-5">
+    <div class="container-fluid mb-5">
         <form method="POST" enctype="multipart/form-data">
 
             <div class="d-flex justify-content-between align-items-center mb-4">
