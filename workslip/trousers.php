@@ -347,6 +347,17 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                 </div>
+                <div class="col-md-7">
+                    <div class="form-section shadow-sm h-100">
+                        <div class="section-title"><i class="fa-solid fa-shirt"></i>Pleats</div>
+                        <div class="row g-2 d-flex">
+                            <div class="col-md-8">
+                                <label>Special Instructions</label>
+                                <textarea name="special_instructions" class="form-control" rows="4" placeholder="Any special requests..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="form-section shadow-sm">
                     <div class="section-title"><i class="fa-solid fa-ruler-combined"></i> Core Measurements (Inches)</div>
