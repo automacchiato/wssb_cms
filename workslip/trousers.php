@@ -316,10 +316,10 @@ if (isset($_POST['submit'])) {
                                 <h6>Collar<br>Length</h6>
                                 <h6>Back<br>Length</h6>
                                 <h6>Front<br>Length</h6> -->
-                                <h6 class="mt-auto mb-auto">Fly (FL)</h6>
-                                <h6 class="mt-auto mb-auto">Side Pocket Hidden (SP)</h6>
-                                <h6 class="mt-auto mb-auto">Side Seams (SS)</h6>
-                                <h6 class="mt-auto mb-auto">Pocket Pull (PP)</h6>
+                                <h6 class="">Fly (FL)</h6>
+                                <h6 class="">Side Pocket Hidden (SP)</h6>
+                                <h6 class="">Side Seams (SS)</h6>
+                                <h6 class="">Pocket Pull (PP)</h6>
                             </div>
                             <div class="col-md-4">
                                 <input type="number" step="0.01" name="collar_length" class="form-control">
