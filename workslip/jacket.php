@@ -24,16 +24,31 @@ if (!$details) {
     exit();
 }
 
-if(isset($_POST['submit'])) {
-    $drawingFile = ""; 
-    
+if (isset($_POST['submit'])) {
+    $drawingFile = "";
+
+    if (!empty($_POST['canvas_image'])) {
+        $img = $_POST['canvas_image'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+
+        $data = base64_decode($img);
+
+        $fileName = "shirt_canvas_" . time() . "_" . $item_id . ".png";
+        $filePath = '../uploads/drawings/' . $fileName;
+
+        file_put_contents($filePath, $data);
+
+        $drawingFile = $fileName;
+    }
+
     // Handle File Upload
     if (isset($_FILES['drawing']) && $_FILES['drawing']['error'] == 0) {
         $uploadDir = '../uploads/drawings/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
-        
+
         $fileExt = pathinfo($_FILES['drawing']['name'], PATHINFO_EXTENSION);
-        $fileName = "shirt_" . time() . "_" . $item_id . "." . $fileExt;
+        $fileName = "jacket_" . time() . "_" . $item_id . "." . $fileExt;
         $targetPath = $uploadDir . $fileName;
 
         if (move_uploaded_file($_FILES['drawing']['tmp_name'], $targetPath)) {
@@ -44,39 +59,39 @@ if(isset($_POST['submit'])) {
     $stmt = $conn->prepare("INSERT INTO workslip_jacket
                 (item_id, manufacturer, salesman_name, cutter_name, tailor_name, gender, special_instructions, previous_invoice_number, back_length, front_length, chest_fit, chest_loose, waist_fit, waist_loose, hip_fit, hip_loose, shoulder, sleeve_length, cuff_length, cross_back, cross_front, vest_length, armhole, back_neck_to_waist, back_neck_to_front_waist, sleeve_button, top_initial, bottom_initial, cleaning_type, drawing)
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            $stmt->bind_param(
-                "isssssssdddddddddddddddddissss",
-                $item_id, //i
-                $_POST['manufacturer'], //s
-                $_POST['salesman_name'], //s
-                $_POST['cutter_name'], //s
-                $_POST['tailor_name'], //s
-                $_POST['gender'], //s
-                $_POST['special_instructions'],
-                $_POST['previous_invoice_number'], //s
-                $_POST['back_length'], //d
-                $_POST['front_length'], ///d
-                $_POST['chest_fit'], //d
-                $_POST['chest_loose'], //d
-                $_POST['waist_fit'], //d
-                $_POST['waist_loose'], //d
-                $_POST['hip_fit'], //d
-                $_POST['hip_loose'], //d
-                $_POST['shoulder'], //d
-                $_POST['sleeve_length'], //d
-                $_POST['cuff_length'], //d
-                $_POST['cross_back'], //d
-                $_POST['cross_front'], //d
-                $_POST['vest_length'], //d
-                $_POST['armhole'], //d
-                $_POST['back_neck_to_waist'], //d
-                $_POST['back_neck_to_front_waist'], //d
-                $_POST['sleeve_button'], //i
-                $_POST['top_initial'], //s
-                $_POST['bottom_initial'], //s
-                $_POST['cleaning_type'], //s
-                $drawingFile //s
-            );
+    $stmt->bind_param(
+        "isssssssdddddddddddddddddissss",
+        $item_id,
+        $_POST['manufacturer'],
+        $_POST['salesman_name'],
+        $_POST['cutter_name'],
+        $_POST['tailor_name'],
+        $_POST['gender'],
+        $_POST['special_instructions'],
+        $_POST['previous_invoice_number'],
+        $_POST['back_length'],
+        $_POST['front_length'],
+        $_POST['chest_fit'],
+        $_POST['chest_loose'],
+        $_POST['waist_fit'],
+        $_POST['waist_loose'],
+        $_POST['hip_fit'],
+        $_POST['hip_loose'],
+        $_POST['shoulder'],
+        $_POST['sleeve_length'],
+        $_POST['cuff_length'],
+        $_POST['cross_back'],
+        $_POST['cross_front'],
+        $_POST['vest_length'],
+        $_POST['armhole'],
+        $_POST['back_neck_to_waist'],
+        $_POST['back_neck_to_front_waist'],
+        $_POST['sleeve_button'],
+        $_POST['top_initial'],
+        $_POST['bottom_initial'],
+        $_POST['cleaning_type'],
+        $drawingFile
+    );
     if ($stmt->execute()) {
         header("Location: ../customers/view.php?id=" . $details['customer_id'] . "&msg=workslip_saved");
         exit();
@@ -88,6 +103,7 @@ if(isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,16 +111,71 @@ if(isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #f0f2f5; }
-        .form-section { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #dee2e6; }
-        .section-title { font-size: 1rem; color: #0d6efd; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; }
-        .section-title i { margin-right: 10px; }
-        label { font-size: 0.8rem; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 5px; }
-        .form-control, .form-select { border-radius: 6px; border: 1px solid #ced4da; padding: 10px; }
-        .form-control:focus { box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1); border-color: #0d6efd; }
-        .header-box { background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid #0d6efd; }
+        body {
+            background-color: #f0f2f5;
+        }
+
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #dee2e6;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            color: #0d6efd;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+            border-color: #0d6efd;
+        }
+
+        .header-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #0d6efd;
+        }
+
+        #drawingCanvas {
+            touch-action: none;
+            /* 🔥 disables scroll/zoom gestures */
+        }
+
+        #canvasWrapper {
+            touch-action: none;
+        }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -128,7 +199,7 @@ if(isset($_POST['submit'])) {
 
     <div class="container mb-5">
         <form method="POST" enctype="multipart/form-data">
-            
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h2 class="fw-bold mb-0">Jacket Measurement</h2>
@@ -203,7 +274,7 @@ if(isset($_POST['submit'])) {
                     <div class="col-md-2 col-6"><label>Chest (Loose)</label><input type="number" step="0.01" name="chest_loose" class="form-control"></div>
                     <div class="col-md-2 col-6"><label>Waist (Fit)</label><input type="number" step="0.01" name="waist_fit" class="form-control"></div>
                     <div class="col-md-2 col-6"><label>Waist (Loose)</label><input type="number" step="0.01" name="waist_loose" class="form-control"></div>
-                    
+
                     <div class="col-md-2 col-6"><label>Hip (Fit)</label><input type="number" step="0.01" name="hip_fit" class="form-control"></div>
                     <div class="col-md-2 col-6"><label>Hip (Loose)</label><input type="number" step="0.01" name="hip_loose" class="form-control"></div>
                     <div class="col-md-2 col-6"><label>Shoulder</label><input type="number" step="0.01" name="shoulder" class="form-control"></div>
@@ -231,7 +302,7 @@ if(isset($_POST['submit'])) {
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6">
                     <div class="form-section shadow-sm h-100">
                         <div class="section-title"><i class="fa-solid fa-person"></i>Sleeve</div>
@@ -252,28 +323,28 @@ if(isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-section shadow-sm">
-    <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
-    <div class="row align-items-center">
-        <div class="col-md-6">
-            <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
-            <div class="d-grid gap-2 d-md-block">
-                <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
-                
-                <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
-                    <i class="fa-solid fa-camera"></i> Take Photo / Upload
-                </button>
+                <div class="section-title"><i class="fa-solid fa-camera"></i> Sketch or Photo Reference</div>
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="text-muted small">Capture a sketch, fabric sample, or existing garment reference.</p>
+                        <div class="d-grid gap-2 d-md-block">
+                            <input type="file" name="drawing" id="drawingInput" class="form-control" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this)">
+
+                            <button type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('drawingInput').click()">
+                                <i class="fa-solid fa-camera"></i> Take Photo / Upload
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
+                            <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
+                            <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6 text-center">
-            <div id="imagePreviewContainer" class="mt-3 mt-md-0" style="display: none;">
-                <img id="preview" src="#" alt="Preview" style="max-height: 200px; border-radius: 8px; border: 2px dashed #ccc;">
-                <p class="small text-success mt-1"><i class="fa-solid fa-check-circle"></i> Image attached</p>
-            </div>
-        </div>
-    </div>
-</div>
 
             <div class="form-section shadow-sm mt-4">
                 <div class="section-title"><i class="fa-solid fa-comment-dots"></i> Instructions & Finishing</div>
@@ -315,21 +386,22 @@ if(isset($_POST['submit'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-function previewImage(input) {
-    const preview = document.getElementById('preview');
-    const container = document.getElementById('imagePreviewContainer');
-    
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            container.style.display = 'block';
+        function previewImage(input) {
+            const preview = document.getElementById('preview');
+            const container = document.getElementById('imagePreviewContainer');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    container.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
         }
-        
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-</script>
+    </script>
 </body>
+
 </html>

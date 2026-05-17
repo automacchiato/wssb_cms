@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include('../auth/check.php');
 include('../config/db.php');
 
@@ -104,6 +109,8 @@ if (isset($_POST['submit'])) {
     if ($stmt->execute()) {
         header("Location: ../customers/view.php?id=" . $details['customer_id'] . "&msg=workslip_saved");
         exit();
+    } else {
+        die("Execute failed: " . $stmt->error);
     }
 }
 ?>
