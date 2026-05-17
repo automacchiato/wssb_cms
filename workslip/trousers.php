@@ -332,7 +332,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-md-3">
                     <div class="form-section shadow-sm h-100">
-                        <div class="section-title"><i class="fa-solid fa-shirt"></i>Hand Stitch</div>
+                        <div class="section-title"><i class="fa-solid fa-shirt"></i>Pleats</div>
                         <div class="row g-2 d-flex">
                             <div class="col-md-6 d-flex flex-column justify-content-center text-center">
                                 <!-- <h5>Item</h5>
