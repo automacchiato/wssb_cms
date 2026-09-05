@@ -595,7 +595,7 @@ if (isset($_POST['submit'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        window.onload = function() {
+        function updateShirtDrawing() {
             const shirtType = document.querySelector('[name="shirt_type"]').value;
             const baseImage = document.getElementById('baseImage');
             const wrapper = document.getElementById('canvasWrapper');
@@ -611,7 +611,35 @@ if (isset($_POST['submit'])) {
             baseImage.src = defaultImage;
             wrapper.style.display = 'block';
 
+            // setupCanvas resizes the canvas to match the new image,
+            // which also clears any existing drawing (dimensions changed).
             baseImage.onload = setupCanvas;
+        }
+
+        // Wraps updateShirtDrawing() with a confirmation prompt when the
+        // canvas already has unsaved strokes on it, so switching shirt
+        // type doesn't silently wipe out a user's drawing.
+        function handleShirtTypeChange(e) {
+            if (hasDrawing) {
+                const proceed = confirm("Switching shirt type will clear your current drawing. Continue?");
+                if (!proceed) {
+                    e.target.value = lastShirtType;
+                    return;
+                }
+            }
+
+            lastShirtType = e.target.value;
+            updateShirtDrawing();
+        }
+
+        let lastShirtType = '';
+
+        window.onload = function() {
+            lastShirtType = document.querySelector('[name="shirt_type"]').value;
+            updateShirtDrawing();
+
+            document.querySelector('[name="shirt_type"]')
+                .addEventListener('change', handleShirtTypeChange);
         };
 
         function toggleFinger() {
@@ -643,6 +671,7 @@ if (isset($_POST['submit'])) {
         let tool = "pen"; // pen | arrow | text
         let brushSize = 2;
         let brushColor = "red";
+        let hasDrawing = false; // tracks whether the canvas has unsaved strokes
 
         function setupCanvas() {
             const img = document.getElementById('baseImage');
@@ -704,6 +733,7 @@ if (isset($_POST['submit'])) {
                     ctx.fillStyle = brushColor;
                     ctx.font = "16px Arial";
                     ctx.fillText(text, pos.x, pos.y);
+                    hasDrawing = true;
                 }
                 return;
             }
@@ -731,6 +761,8 @@ if (isset($_POST['submit'])) {
 
                 ctx.lineTo(pos.x, pos.y);
                 ctx.stroke();
+
+                hasDrawing = true;
             }
         }
 
@@ -747,6 +779,7 @@ if (isset($_POST['submit'])) {
             if (tool === "arrow") {
                 const pos = getPos(e);
                 drawArrow(startX, startY, pos.x, pos.y);
+                hasDrawing = true;
             }
         }
 
@@ -780,6 +813,7 @@ if (isset($_POST['submit'])) {
         // 🔥 CLEAR
         function clearCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hasDrawing = false;
         }
 
         // 🔥 SAVE MERGED IMAGE
