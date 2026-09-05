@@ -344,7 +344,7 @@ if (isset($_POST['submit'])) {
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label>Previous Inv. No.</label>
-                        <input name="previous_invoice_number" class="form-control" value="<?php echo htmlspecialchars($details['previous_invoice_number']) ?>" disabled>
+                        <input name="previous_invoice_number" class="form-control" value="<?php echo htmlspecialchars($details['previous_invoice_number'] ?? '') ?>" disabled>
                     </div>
                     <div class="col-md-2">
                         <label>Collar Design</label>
