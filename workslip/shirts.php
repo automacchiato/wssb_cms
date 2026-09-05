@@ -276,7 +276,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-4">
                         <label>Delivery Date</label>
-                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date']) ?? '' ?>" disabled>
+                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date'] ?? '') ?>" disabled>
                     </div>
                 </div>
 
@@ -304,7 +304,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-4">
                         <label>Fitting Date</label>
-                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date']) ?>" disabled>
+                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date'] ?? '')  ?>" disabled>
                     </div>
                     <div class="col-md-2">
                         <label>Gender</label>
