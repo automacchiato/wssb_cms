@@ -66,6 +66,25 @@ function fixImageOrientation($imagePath) {
     return $tmpPath;
 }
 
+function addWorkslipDrawing($pdf, $drawingFile, $x, $y, $width, $height) {
+    if (empty($drawingFile)) {
+        return;
+    }
+
+    $drawingPath = __DIR__ . '/../uploads/drawings/' . basename($drawingFile);
+    if (!is_file($drawingPath) || !is_readable($drawingPath)) {
+        return;
+    }
+
+    $imageInfo = @getimagesize($drawingPath);
+    $supportedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
+    if ($imageInfo === false || !in_array($imageInfo[2], $supportedTypes, true)) {
+        return;
+    }
+
+    $pdf->Image(fixImageOrientation($drawingPath), $x, $y, $width, $height);
+}
+
 // ---------------- Page 1: Invoice ----------------
 class PDF extends FPDF
 {
@@ -413,9 +432,7 @@ while ($row = $items->fetch_assoc()) {
             $pdf->Cell(35, 10, $row['fabric_usage'], 1, 0, "C");
             $pdf->Cell(35, 10, $work['cleaning_type'], 1, 1, "C");
 
-            // Drawing (EXIF-corrected)
-            $drawingPath = fixImageOrientation(__DIR__ . "/../uploads/drawings/" . $work['drawing']);
-            $pdf->Image($drawingPath, 110, 125, 80, 80);
+            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 110, 125, 80, 80);
 
             // Extra notes / signatures
             $pdf->Cell(0, 8, "Special Instructions: " . ($work['special_instructions'] ?? ""), 0, 1);
@@ -638,9 +655,7 @@ while ($row = $items->fetch_assoc()) {
             $pdf->Cell(35, 8, $row['fabric_usage'], 1, 0, "C");
             $pdf->Cell(35, 8, $work['cleaning_type'], 1, 1, "C");
 
-            // Drawing (EXIF-corrected)
-            $drawingPath = fixImageOrientation(__DIR__ . "/../uploads/drawings/" . $work['drawing']);
-            $pdf->Image($drawingPath, 110, 90, 80, 80);
+            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 110, 90, 80, 80);
 
             // Extra notes / signatures
             $pdf->Cell(0, 8, "Special Instructions: " . ($work['special_instructions'] ?? ""), 0, 1);
@@ -821,9 +836,7 @@ while ($row = $items->fetch_assoc()) {
             $pdf->Cell(35, 10, $row['fabric_usage'], 1, 0, "C");
             $pdf->Cell(35, 10, $work['cleaning_type'], 1, 1, "C");
 
-            // Drawing (EXIF-corrected)
-            $drawingPath = fixImageOrientation(__DIR__ . "/../uploads/drawings/" . $work['drawing']);
-            $pdf->Image($drawingPath, 100, 75, 100, 100);
+            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 100, 75, 100, 100);
 
             // Extra notes / signatures
             $pdf->Cell(0, 8, "Special Instructions: " . ($work['special_instructions'] ?? ""), 0, 1);
