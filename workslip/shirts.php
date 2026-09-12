@@ -611,12 +611,12 @@ if (isset($_POST['submit'])) {
             const armLength = document.getElementById('armLength');
             const elbowLength = document.getElementById('elbowLength');
 
-            armLength.disabled = shirtType.endsWith('/S');
+            armLength.disabled = shirtType.endsWith('/L');
             if (armLength.disabled) {
                 armLength.value = '';
             }
 
-            elbowLength.disabled = shirtType.endsWith('/L');
+            elbowLength.disabled = shirtType.endsWith('/S');
             if (elbowLength.disabled) {
                 elbowLength.value = '';
             }
