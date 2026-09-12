@@ -394,6 +394,12 @@ if (isset($_POST['submit'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        document.querySelector('form').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
+                event.preventDefault();
+            }
+        });
+
         function previewImage(input) {
             const preview = document.getElementById('preview');
             const container = document.getElementById('imagePreviewContainer');
