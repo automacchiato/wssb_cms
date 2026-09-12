@@ -76,7 +76,9 @@ foreach ($tables as $table => $label) {
     <main class="container mb-5">
         <div class="d-flex justify-content-between align-items-center mb-4 no-print">
             <button onclick="history.back()" class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i> Back</button>
-            <button onclick="window.print()" class="btn btn-primary"><i class="fa-solid fa-print"></i> Print Workslip</button>
+            <a href="../invoices/pdf.php?id=<?php echo (int) $data['invoice_id']; ?>" class="btn btn-success" target="_blank">
+                <i class="fa-solid fa-file-pdf me-1"></i> Download PDF
+            </a>
         </div>
 
         <div class="workslip-card">
