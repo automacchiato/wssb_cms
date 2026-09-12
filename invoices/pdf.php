@@ -66,23 +66,42 @@ function fixImageOrientation($imagePath) {
     return $tmpPath;
 }
 
-function addWorkslipDrawing($pdf, $drawingFile, $x, $y, $width, $height) {
-    if (empty($drawingFile)) {
-        return;
+function getSupportedPdfImage($imagePath) {
+    if (!is_file($imagePath) || !is_readable($imagePath)) {
+        return null;
     }
 
-    $drawingPath = __DIR__ . '/../uploads/drawings/' . basename($drawingFile);
-    if (!is_file($drawingPath) || !is_readable($drawingPath)) {
-        return;
-    }
-
-    $imageInfo = @getimagesize($drawingPath);
+    $imageInfo = @getimagesize($imagePath);
     $supportedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
     if ($imageInfo === false || !in_array($imageInfo[2], $supportedTypes, true)) {
+        return null;
+    }
+
+    $fpdfTypes = [
+        IMAGETYPE_JPEG => 'jpeg',
+        IMAGETYPE_PNG => 'png',
+        IMAGETYPE_GIF => 'gif'
+    ];
+
+    return ['path' => $imagePath, 'type' => $fpdfTypes[$imageInfo[2]]];
+}
+
+function addWorkslipDrawing($pdf, $drawingFile, $defaultDrawing, $x, $y, $width, $height) {
+    $image = null;
+
+    if (!empty($drawingFile)) {
+        $image = getSupportedPdfImage(__DIR__ . '/../uploads/drawings/' . basename($drawingFile));
+    }
+
+    if ($image === null) {
+        $image = getSupportedPdfImage(__DIR__ . '/../uploads/drawings/default/' . basename($defaultDrawing));
+    }
+
+    if ($image === null) {
         return;
     }
 
-    $pdf->Image(fixImageOrientation($drawingPath), $x, $y, $width, $height);
+    $pdf->Image(fixImageOrientation($image['path']), $x, $y, $width, $height, $image['type']);
 }
 
 // ---------------- Page 1: Invoice ----------------
@@ -216,6 +235,70 @@ while ($row = $items->fetch_assoc()) {
 
     // Fetch details from correct workslip table
     switch (strtoupper($row['item_type'])) {
+        case 'BAJU MELAYU':
+            $sql = "SELECT * FROM workslip_baju_melayu WHERE item_id = $item_id";
+            $work = $conn->query($sql)->fetch_assoc();
+
+            if (!$work) {
+                $pdf->MultiCell(0, 8, "- No Baju Melayu workslip data available.");
+                break;
+            }
+
+            $pdf->SetFont('Arial', 'B', 14);
+            $pdf->Cell(0, 10, 'Baju Melayu Workslip', 1, 1, 'C');
+
+            $pdf->SetFont('Arial', 'B', 11);
+            $pdf->Cell(38, 10, 'Invoice No.', 1);
+            $pdf->SetFont('Arial', '', 11);
+            $pdf->Cell(38, 10, $invoice['invoice_number'], 1);
+            $pdf->SetFont('Arial', 'B', 11);
+            $pdf->Cell(38, 10, 'Manufacturer', 1);
+            $pdf->SetFont('Arial', '', 11);
+            $pdf->Cell(38, 10, $work['manufacturer'], 1);
+            $pdf->SetFont('Arial', 'B', 14);
+            $pdf->Cell(38, 10, 'MUST', 1, 1, 'C');
+
+            $pdf->SetFont('Arial', 'B', 11);
+            $pdf->Cell(47.5, 10, 'Fitting Date', 1);
+            $pdf->SetFont('Arial', '', 11);
+            $pdf->Cell(47.5, 10, $invoice['fitting_date'], 1);
+            $pdf->SetFont('Arial', 'B', 11);
+            $pdf->Cell(47.5, 10, 'Delivery Date', 1);
+            $pdf->SetFont('Arial', '', 11);
+            $pdf->Cell(47.5, 10, $invoice['delivery_date'], 1, 1);
+
+            $pdf->Ln(5);
+            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->Cell(45, 8, 'Measurement', 1, 0, 'C');
+            $pdf->Cell(45, 8, 'Value', 1, 1, 'C');
+
+            $measurements = [
+                'Collar Type' => 'collar_type',
+                'Collar Height' => 'collar_height',
+                'Back Length' => 'back_length',
+                'Front Length' => 'front_length',
+                'Chest Fit' => 'chest_fit',
+                'Chest Loose' => 'chest_loose',
+                'Waist Fit' => 'waist_fit',
+                'Waist Loose' => 'waist_loose',
+                'Hip Fit' => 'hip_fit',
+                'Hip Loose' => 'hip_loose',
+                'Shoulder' => 'shoulder',
+                'Sleeve Length' => 'sleeve_length',
+                'Arm Length' => 'arm_length',
+                'Armhole Length' => 'armhole_length'
+            ];
+            foreach ($measurements as $label => $field) {
+                $pdf->SetFont('Arial', 'B', 9);
+                $pdf->Cell(45, 7, $label, 1);
+                $pdf->SetFont('Arial', '', 10);
+                $pdf->Cell(45, 7, $work[$field] ?? '', 1, 1);
+            }
+
+            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 'default_bajumelayu.png', 110, 85, 80, 80);
+            $pdf->Cell(0, 8, 'Special Instructions: ' . ($work['special_instructions'] ?? ''), 0, 1);
+            break;
+
         case 'SHIRT':
             $sql = "SELECT * FROM workslip_shirts WHERE item_id = $item_id";
             $work = $conn->query($sql)->fetch_assoc();
@@ -432,7 +515,10 @@ while ($row = $items->fetch_assoc()) {
             $pdf->Cell(35, 10, $row['fabric_usage'], 1, 0, "C");
             $pdf->Cell(35, 10, $work['cleaning_type'], 1, 1, "C");
 
-            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 110, 125, 80, 80);
+            $shirtTemplate = substr($work['shirt_type'] ?? '', -2) === '/L'
+                ? 'default_shirt_long.png'
+                : 'default_shirt_short.png';
+            addWorkslipDrawing($pdf, $work['drawing'] ?? '', $shirtTemplate, 110, 125, 80, 80);
 
             // Extra notes / signatures
             $pdf->Cell(0, 8, "Special Instructions: " . ($work['special_instructions'] ?? ""), 0, 1);
@@ -655,7 +741,7 @@ while ($row = $items->fetch_assoc()) {
             $pdf->Cell(35, 8, $row['fabric_usage'], 1, 0, "C");
             $pdf->Cell(35, 8, $work['cleaning_type'], 1, 1, "C");
 
-            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 110, 90, 80, 80);
+            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 'default_trousers.png', 110, 90, 80, 80);
 
             // Extra notes / signatures
             $pdf->Cell(0, 8, "Special Instructions: " . ($work['special_instructions'] ?? ""), 0, 1);
@@ -836,7 +922,7 @@ while ($row = $items->fetch_assoc()) {
             $pdf->Cell(35, 10, $row['fabric_usage'], 1, 0, "C");
             $pdf->Cell(35, 10, $work['cleaning_type'], 1, 1, "C");
 
-            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 100, 75, 100, 100);
+            addWorkslipDrawing($pdf, $work['drawing'] ?? '', 'default_jackets.png', 100, 75, 100, 100);
 
             // Extra notes / signatures
             $pdf->Cell(0, 8, "Special Instructions: " . ($work['special_instructions'] ?? ""), 0, 1);
