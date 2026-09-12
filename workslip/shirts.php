@@ -60,6 +60,9 @@ if (isset($_POST['submit'])) {
         (item_id, manufacturer, salesman_name, cutter_name, tailor_name, shirt_type, gender, special_instructions, previous_invoice_number, fabric_direction, collar_design, collar_height, collar_width, collar_gap, collar_meet, collar_length, back_length, front_length, chest_fit, chest_loose, waist_fit, waist_loose, hip_fit, hip_loose, shoulder, sleeve_length, arm_length, elbow_length, cuff_type, cuff_length, cuff_width, armhole_length, erect, hunch, shoulder_type, corpulent, front_cutting, placket_type, top_initial, bottom_initial, cleaning_type, drawing) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
+    $armLength = $_POST['arm_length'] ?? null;
+    $elbowLength = $_POST['elbow_length'] ?? null;
+
     $stmt->bind_param(
         "issssssssssdddddddddddddddddsdddddsdssssss",
         $item_id,
@@ -88,8 +91,8 @@ if (isset($_POST['submit'])) {
         $_POST['hip_loose'],
         $_POST['shoulder'],
         $_POST['sleeve_length'],
-        $_POST['arm_length'] ?? null,
-        $_POST['elbow_length'] ?? null,
+        $armLength,
+        $elbowLength,
         $_POST['cuff_type'],
         $_POST['cuff_length'],
         $_POST['cuff_width'],
