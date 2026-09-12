@@ -6,7 +6,7 @@ $item_id = isset($_GET['item_id']) ? mysqli_real_escape_string($conn, $_GET['ite
 
 // ITEM + INVOICE + CUSTOMER
 $data_query = mysqli_query($conn, "
-    SELECT invoice_items.*, invoices.invoice_number, customers.customer_name
+    SELECT invoice_items.*, invoices.invoice_number, invoices.fitting_date, invoices.delivery_date, customers.customer_name
     FROM invoice_items
     JOIN invoices ON invoice_items.invoice_id = invoices.invoice_id
     JOIN customers ON invoices.customer_id = customers.customer_id
@@ -89,6 +89,8 @@ foreach ($tables as $table => $label) {
                     <p class="mb-0 text-muted small text-uppercase fw-bold">Invoice Number</p>
                     <h4 class="mb-0">#<?php echo htmlspecialchars($data['invoice_number']); ?></h4>
                     <p class="text-muted small mt-1">Item ID: <?php echo $item_id; ?></p>
+                    <p class="text-muted small mb-0">Fitting: <?php echo !empty($data['fitting_date']) ? date('d M Y', strtotime($data['fitting_date'])) : 'Not Set'; ?></p>
+                    <p class="text-muted small mb-0">Delivery: <?php echo !empty($data['delivery_date']) ? date('d M Y', strtotime($data['delivery_date'])) : 'Not Set'; ?></p>
                 </div>
             </div>
 

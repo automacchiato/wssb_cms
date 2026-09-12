@@ -5,7 +5,7 @@ include('../config/db.php');
 $item_id = isset($_GET['item_id']) ? mysqli_real_escape_string($conn, $_GET['item_id']) : 0;
 
 // Fetch Item and Customer details
-$query = "SELECT ii.*, i.invoice_number, i.customer_id, c.customer_name 
+$query = "SELECT ii.*, i.invoice_number, i.customer_id, i.fitting_date, i.delivery_date, c.customer_name
           FROM invoice_items ii
           JOIN invoices i ON ii.invoice_id = i.invoice_id
           JOIN customers c ON i.customer_id = c.customer_id
@@ -267,7 +267,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-4">
                         <label>Delivery Date</label>
-                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date']) ?>" disabled>
+                        <input name="delivery_date" class="form-control" value="<?php echo htmlspecialchars($details['delivery_date'] ?? '') ?>" disabled>
                     </div>
                 </div>
 
@@ -293,7 +293,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-4">
                         <label>Fitting Date</label>
-                        <input name="quantity" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date']) ?>" disabled>
+                        <input name="fitting_date" class="form-control" value="<?php echo htmlspecialchars($details['fitting_date'] ?? '') ?>" disabled>
                     </div>
                 </div>
             </div>
