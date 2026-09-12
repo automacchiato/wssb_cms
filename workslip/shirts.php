@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
         $_POST['hip_loose'],
         $_POST['shoulder'],
         $_POST['sleeve_length'],
-        $_POST['arm_length'],
+        $_POST['arm_length'] ?? null,
         $_POST['elbow_length'] ?? null,
         $_POST['cuff_type'],
         $_POST['cuff_length'],
@@ -426,7 +426,7 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="hip_fit" class="form-control">
                                 <input type="number" step="0.01" name="shoulder" class="form-control">
                                 <input type="number" step="0.01" name="sleeve_length" class="form-control">
-                                <input type="number" step="0.01" name="arm_length" class="form-control">
+                                <input id="armLength" type="number" step="0.01" name="arm_length" class="form-control">
                                 <input id="elbowLength" type="number" step="0.01" name="elbow_length" class="form-control">
                                 <input type="number" step="0.01" name="cuff_length" class="form-control">
                                 <input type="number" step="0.01" name="armhole_length" class="form-control">
@@ -605,7 +605,13 @@ if (isset($_POST['submit'])) {
             const shirtType = document.querySelector('[name="shirt_type"]').value;
             const baseImage = document.getElementById('baseImage');
             const wrapper = document.getElementById('canvasWrapper');
+            const armLength = document.getElementById('armLength');
             const elbowLength = document.getElementById('elbowLength');
+
+            armLength.disabled = shirtType.endsWith('/S');
+            if (armLength.disabled) {
+                armLength.value = '';
+            }
 
             elbowLength.disabled = shirtType.endsWith('/L');
             if (elbowLength.disabled) {
