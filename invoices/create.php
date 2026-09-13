@@ -69,11 +69,7 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY customer_name
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="../dashboard.php">WSSB CMS</a>
-        </div>
-    </nav>
+    <?php $navbarBasePath = '../'; $navbarActive = 'invoices'; include('../includes/navbar.php'); ?>
 
     <main class="container mb-5">
         <div class="row justify-content-center">

@@ -35,18 +35,7 @@ $result = mysqli_query($conn, $sql);
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="../dashboard.php">WSSB CMS</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="../dashboard.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="index.php">Customers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../invoices/index.php">Invoices</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php $navbarBasePath = '../'; $navbarActive = 'customers'; include('../includes/navbar.php'); ?>
 
     <main class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
