@@ -25,6 +25,11 @@ if (!$details) {
 }
 
 if (isset($_POST['submit'])) {
+    if (($_POST['collar_design'] ?? '') === 'Cutaway (C3)') {
+        $_POST['collar_height'] = '2.75';
+        $_POST['collar_width'] = '1.5';
+    }
+
     $drawingFile = "";
 
     if (!empty($_POST['canvas_image'])) {
@@ -351,7 +356,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-2">
                         <label>Collar Design</label>
-                        <select name="collar_design" class="form-select">
+                        <select name="collar_design" id="collarDesign" class="form-select">
                             <option value="Button Down (C1)">Button Down (C1)</option>
                             <option value="Classic (C2)">Classic (C2)</option>
                             <option value="Cutaway (C3)">Cutaway (C3)</option>
@@ -360,11 +365,11 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-1">
                         <label>Height</label>
-                        <input type="number" step="0.01" name="collar_height" class="form-control">
+                        <input type="number" step="0.01" name="collar_height" id="collarHeight" class="form-control">
                     </div>
                     <div class="col-md-1">
                         <label>Width</label>
-                        <input type="number" step="0.01" name="collar_width" class="form-control">
+                        <input type="number" step="0.01" name="collar_width" id="collarWidth" class="form-control">
                     </div>
                     <div class="col-md-1">
                         <label>Gap</label>
@@ -667,6 +672,16 @@ if (isset($_POST['submit'])) {
             allowFinger = !allowFinger;
             alert("Finger drawing: " + (allowFinger ? "ON" : "OFF (Pencil only)"));
         }
+
+        const collarDesign = document.getElementById('collarDesign');
+        const collarHeight = document.getElementById('collarHeight');
+        const collarWidth = document.getElementById('collarWidth');
+
+        collarDesign.addEventListener('change', function() {
+            const isCutaway = this.value === 'Cutaway (C3)';
+            collarHeight.value = isCutaway ? '2.75' : '';
+            collarWidth.value = isCutaway ? '1.5' : '';
+        });
 
         function previewImage(input) {
             const preview = document.getElementById('preview');
