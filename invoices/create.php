@@ -2,40 +2,49 @@
 include('../auth/check.php');
 include('../config/db.php');
 
+$invoiceNumber = 'MK0000';
+$invoiceNumberError = '';
+
 if (isset($_POST['submit'])) {
-    $invoice_number = $_POST['invoice_number'];
-    $customer_id = $_POST['customer_id'];
-    $total = $_POST['total'];
-    
-    // Get Order, Fitting, and Delivery dates
-    $order_date = !empty($_POST['order_date']) ? $_POST['order_date'] : date('Y-m-d');
-    $fitting_date = !empty($_POST['fitting_date']) ? $_POST['fitting_date'] : NULL;
-    $delivery_date = !empty($_POST['delivery_date']) ? $_POST['delivery_date'] : NULL;
+    $invoiceNumber = strtoupper(trim($_POST['invoice_number'] ?? ''));
 
-    // Securely insert Invoice with custom Order Date
-    $stmt = $conn->prepare("INSERT INTO invoices (invoice_number, customer_id, total_amount, fitting_date, delivery_date, order_date) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sidsss", $invoice_number, $customer_id, $total, $fitting_date, $delivery_date, $order_date);
-    
-    if ($stmt->execute()) {
-        $invoice_id = $conn->insert_id;
+    if (!preg_match('/^MK\d{4}$/', $invoiceNumber)) {
+        $invoiceNumberError = 'Invoice number must use the format MK followed by four digits (for example, MK0001).';
+    } else {
+        $invoice_number = $invoiceNumber;
+        $customer_id = $_POST['customer_id'];
+        $total = $_POST['total'];
 
-        // Securely insert Invoice Items 
-        $item_stmt = $conn->prepare("INSERT INTO invoice_items (invoice_id, item_type, quantity, amount, fabric_code, fabric_name, fabric_color, fabric_usage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        
-        foreach ($_POST['item_type'] as $key => $value) {
-            $qty = $_POST['quantity'][$key];
-            $amt = $_POST['amount'][$key];
-            $f_code = $_POST['fabric_code'][$key];
-            $f_name = $_POST['fabric_name'][$key];
-            $f_color = $_POST['fabric_color'][$key];
-            $f_usage = $_POST['fabric_usage'][$key];
+        // Get Order, Fitting, and Delivery dates
+        $order_date = !empty($_POST['order_date']) ? $_POST['order_date'] : date('Y-m-d');
+        $fitting_date = !empty($_POST['fitting_date']) ? $_POST['fitting_date'] : NULL;
+        $delivery_date = !empty($_POST['delivery_date']) ? $_POST['delivery_date'] : NULL;
 
-            $item_stmt->bind_param("isidssss", $invoice_id, $value, $qty, $amt, $f_code, $f_name, $f_color, $f_usage);
-            $item_stmt->execute();
+        // Securely insert Invoice with custom Order Date
+        $stmt = $conn->prepare("INSERT INTO invoices (invoice_number, customer_id, total_amount, fitting_date, delivery_date, order_date) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sidsss", $invoice_number, $customer_id, $total, $fitting_date, $delivery_date, $order_date);
+
+        if ($stmt->execute()) {
+            $invoice_id = $conn->insert_id;
+
+            // Securely insert Invoice Items
+            $item_stmt = $conn->prepare("INSERT INTO invoice_items (invoice_id, item_type, quantity, amount, fabric_code, fabric_name, fabric_color, fabric_usage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
+            foreach ($_POST['item_type'] as $key => $value) {
+                $qty = $_POST['quantity'][$key];
+                $amt = $_POST['amount'][$key];
+                $f_code = $_POST['fabric_code'][$key];
+                $f_name = $_POST['fabric_name'][$key];
+                $f_color = $_POST['fabric_color'][$key];
+                $f_usage = $_POST['fabric_usage'][$key];
+
+                $item_stmt->bind_param("isidssss", $invoice_id, $value, $qty, $amt, $f_code, $f_name, $f_color, $f_usage);
+                $item_stmt->execute();
+            }
+
+            header("Location: index.php");
+            exit();
         }
-
-        header("Location: index.php");
-        exit();
     }
 }
 
@@ -71,12 +80,16 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY customer_name
             <div class="col-lg-12">
                 <div class="invoice-card">
                     <h3 class="mb-4 text-primary fw-bold">Create New Invoice</h3>
-                    
+
                     <form method="POST" id="invoiceForm">
                         <div class="row mb-4">
                             <div class="col-md-2">
                                 <label class="form-label fw-bold small">Invoice #</label>
-                                <input name="invoice_number" class="form-control" value="MOOO0" required>
+                                <input id="invoiceNumber" name="invoice_number" class="form-control<?php echo $invoiceNumberError ? ' is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($invoiceNumber); ?>" pattern="MK[0-9]{4}" minlength="6" maxlength="6" title="Use MK followed by four digits, for example MK0001" autocomplete="off" required>
+                                <div id="invoiceNumberHelp" class="form-text">Format: MK followed by four digits (for example, MK0001).</div>
+                                <?php if ($invoiceNumberError): ?>
+                                    <div class="invalid-feedback d-block"><?php echo htmlspecialchars($invoiceNumberError); ?></div>
+                                <?php endif; ?>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label fw-bold small">Customer</label>
@@ -221,6 +234,12 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY customer_name
             input.addEventListener('input', calculateTotal);
         });
     }
+
+    const invoiceNumberInput = document.getElementById('invoiceNumber');
+    invoiceNumberInput.addEventListener('input', function() {
+        const digits = this.value.replace(/\D/g, '').slice(0, 4);
+        this.value = `MK${digits}`;
+    });
 
     attachCalcEvents();
     </script>
