@@ -364,6 +364,7 @@ if (isset($_POST['submit'])) {
                             <option value="Classic (C2)">Classic (C2)</option>
                             <option value="Cutaway (C3)">Cutaway (C3)</option>
                             <option value="Wing (C4)">Wing (C4)</option>
+                            <option value="Custom Collar">Custom Collar</option>
                         </select>
                     </div>
                     <div class="col-md-1">
