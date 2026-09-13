@@ -98,9 +98,9 @@ if (isset($_POST['submit'])) {
         $_POST['sleeve_length'],
         $armLength,
         $elbowLength,
-        $_POST['cuff_type'],
-        $_POST['cuff_length'],
-        $_POST['cuff_width'],
+        $_POST['cuff_type'] ?? '',
+        $_POST['cuff_length'] ?? '',
+        $_POST['cuff_width'] ?? '',
         $_POST['armhole_length'],
         $_POST['erect'],
         $_POST['hunch'],
@@ -299,7 +299,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-2">
                         <label>Shirt Type</label>
-                        <select name="shirt_type" class="form-select">
+                        <select name="shirt_type" id="shirtType" class="form-select">
                             <option value="SH/S">Shirt (Short Sleeve)</option>
                             <option value="SH/L">Shirt (Long Sleeve)</option>
                             <option value="BSH/S">Batik Shirt (Short Sleeve)</option>
@@ -436,7 +436,7 @@ if (isset($_POST['submit'])) {
                                 <input type="number" step="0.01" name="sleeve_length" class="form-control">
                                 <input id="armLength" type="number" step="0.01" name="arm_length" class="form-control">
                                 <input id="elbowLength" type="number" step="0.01" name="elbow_length" class="form-control">
-                                <input type="number" step="0.01" name="cuff_length" class="form-control">
+                                <input type="number" step="0.01" name="cuff_length" id="cuffLength" class="form-control">
                                 <input type="number" step="0.01" name="armhole_length" class="form-control">
                                 <input type="number" step="0.01" name="erect" class="form-control">
                                 <input type="number" step="0.01" name="hunch" class="form-control">
@@ -490,14 +490,14 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="col-6">
                                     <label>Cuff Type</label>
-                                    <select name="cuff_type" class="form-select">
+                                    <select name="cuff_type" id="cuffType" class="form-select">
                                         <option value="Single">Single</option>
                                         <option value="Double">Double</option>
                                     </select>
                                 </div>
                                 <div class="col-6">
                                     <label>Cuff Width</label>
-                                    <input type="number" step="0.01" name="cuff_width" class="form-control">
+                                    <input type="number" step="0.01" name="cuff_width" id="cuffWidth" class="form-control">
                                 </div>
                                 <div class="col-12">
                                     <label>Cleaning Type</label>
@@ -682,6 +682,27 @@ if (isset($_POST['submit'])) {
             collarHeight.value = isCutaway ? '2.75' : '';
             collarWidth.value = isCutaway ? '1.5' : '';
         });
+
+        const shirtType = document.getElementById('shirtType');
+        const cuffControls = [
+            document.getElementById('cuffLength'),
+            document.getElementById('cuffType'),
+            document.getElementById('cuffWidth')
+        ];
+
+        function updateCuffControls() {
+            const isShortSleeve = shirtType.value.endsWith('/S');
+
+            cuffControls.forEach(function(control) {
+                control.disabled = isShortSleeve;
+                if (isShortSleeve) {
+                    control.value = '';
+                }
+            });
+        }
+
+        shirtType.addEventListener('change', updateCuffControls);
+        updateCuffControls();
 
         function previewImage(input) {
             const preview = document.getElementById('preview');
