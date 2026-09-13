@@ -25,6 +25,11 @@ if (!$details) {
 }
 
 if(isset($_POST['submit'])) {
+    if (($_POST['collar_type'] ?? '') === 'Cutaway (C3)') {
+        $_POST['collar_height'] = '2.75';
+        $_POST['collar_width'] = '1.5';
+    }
+
     $drawingFile = ""; 
     
     // Handle File Upload
@@ -239,14 +244,15 @@ if(isset($_POST['submit'])) {
                         <div class="row g-3">
                             <div class="col-12">
                                 <label>Collar Design</label>
-                                <select name="collar_type" class="form-select">
+                                <select name="collar_type" id="collarDesign" class="form-select">
                                     <option value="Button Down (C1)">Button Down (C1)</option>
                                     <option value="Classic (C2)">Classic (C2)</option>
                                     <option value="Cutaway (C3)">Cutaway (C3)</option>
                                     <option value="Wing (C4)">Wing (C4)</option>
                                 </select>
                             </div>
-                            <div class="col-4"><label>Height</label><input type="number" step="0.01" name="collar_height" class="form-control"></div>
+                            <div class="col-4"><label>Height</label><input type="number" step="0.01" name="collar_height" id="collarHeight" class="form-control"></div>
+                            <div class="col-4"><label>Width</label><input type="number" step="0.01" name="collar_width" id="collarWidth" class="form-control"></div>
                             <div class="col-4"><label>Gap</label><input type="number" step="0.01" name="collar_gap" class="form-control"></div>
                             <div class="col-4"><label>Meet</label><input type="number" step="0.01" name="collar_meet" class="form-control"></div>
                             <div class="col-4"><label>Cutting Type</label>
@@ -346,6 +352,16 @@ document.querySelector('form').addEventListener('keydown', function(event) {
     if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
         event.preventDefault();
     }
+});
+
+const collarDesign = document.getElementById('collarDesign');
+const collarHeight = document.getElementById('collarHeight');
+const collarWidth = document.getElementById('collarWidth');
+
+collarDesign.addEventListener('change', function() {
+    const isCutaway = this.value === 'Cutaway (C3)';
+    collarHeight.value = isCutaway ? '2.75' : '';
+    collarWidth.value = isCutaway ? '1.5' : '';
 });
 
 function previewImage(input) {
