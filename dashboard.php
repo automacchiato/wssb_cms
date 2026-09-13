@@ -103,33 +103,7 @@ $totalRevenue = number_format((float) $stats['total_revenue'], 2);
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="dashboard.php">WSSB CMS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="dashboard.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="customers/index.php">Customers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="invoices/index.php">Invoices</a>
-                    </li>
-                </ul>
-                <div class="navbar-nav align-items-lg-center">
-                    <span class="navbar-text me-lg-3">
-                        Hello, <strong><?php echo htmlspecialchars($_SESSION['user']); ?></strong>
-                    </span>
-                    <a href="auth/logout.php" class="btn btn-outline-danger btn-sm">Logout</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php $navbarActive = 'home'; include('includes/navbar.php'); ?>
 
     <main class="container dashboard-container py-3 py-md-4">
         <section class="dashboard-hero mb-4" aria-labelledby="dashboard-title">

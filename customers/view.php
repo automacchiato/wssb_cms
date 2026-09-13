@@ -35,18 +35,7 @@ $invoices = mysqli_query($conn, "SELECT * FROM invoices WHERE customer_id = $cus
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="../dashboard.php">WSSB CMS</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="../dashboard.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="index.php">Customers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../invoices/index.php">Invoices</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php $navbarBasePath = '../'; $navbarActive = 'customers'; include('../includes/navbar.php'); ?>
 
     <main class="container mb-5">
         <div class="profile-header mb-4">

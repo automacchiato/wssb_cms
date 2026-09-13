@@ -73,11 +73,7 @@ if(isset($_POST['update'])) {
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="../dashboard.php">WSSB CMS | Edit Invoice</a>
-    </div>
-</nav>
+<?php $navbarBasePath = '../'; $navbarActive = 'invoices'; include('../includes/navbar.php'); ?>
 
 <div class="container mb-5">
     <div class="edit-card">

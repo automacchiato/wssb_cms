@@ -47,18 +47,7 @@ $items = mysqli_query($conn, "SELECT * FROM invoice_items WHERE invoice_id=$id")
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 no-print">
-        <div class="container">
-            <a class="navbar-brand" href="../dashboard.php">WSSB CMS</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="../dashboard.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../customers/index.php">Customers</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="index.php">Invoices</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="no-print"><?php $navbarBasePath = '../'; $navbarActive = 'invoices'; include('../includes/navbar.php'); ?></div>
 
     <main class="container mb-5">
         <div class="d-flex justify-content-between align-items-center mb-4 no-print">

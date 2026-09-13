@@ -42,27 +42,7 @@ if (isset($_POST['update'])) {
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="../dashboard.php">WSSB CMS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="../dashboard.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="index.php">Customers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../invoices/index.php">Invoices</a></li>
-                </ul>
-                <div class="navbar-nav">
-                    <span class="navbar-text me-3 text-light">
-                        User: <strong><?php echo htmlspecialchars($_SESSION['user']); ?></strong>
-                    </span>
-                    <a href="../auth/logout.php" class="btn btn-outline-danger btn-sm">Logout</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php $navbarBasePath = '../'; $navbarActive = 'customers'; include('../includes/navbar.php'); ?>
 
     <main class="container">
         <div class="row justify-content-center">
