@@ -65,55 +65,90 @@ if (isset($_POST['submit'])) {
         (item_id, manufacturer, salesman_name, cutter_name, tailor_name, shirt_type, gender, special_instructions, previous_invoice_number, fabric_direction, collar_design, collar_height, collar_width, collar_gap, collar_meet, collar_length, back_length, front_length, chest_fit, chest_loose, waist_fit, waist_loose, hip_fit, hip_loose, shoulder, sleeve_length, arm_length, elbow_length, cuff_type, cuff_length, cuff_width, armhole_length, erect, hunch, shoulder_type, corpulent, front_cutting, placket_type, top_initial, bottom_initial, cleaning_type, drawing) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
+    $manufacturer = $_POST['manufacturer'] ?? '';
+    $salesmanName = $_POST['salesman_name'] ?? '';
+    $cutterName = $_POST['cutter_name'] ?? '';
+    $tailorName = $_POST['tailor_name'] ?? '';
+    $shirtType = $_POST['shirt_type'] ?? '';
+    $gender = $_POST['gender'] ?? '';
+    $specialInstructions = $_POST['special_instructions'] ?? '';
+    $previousInvoiceNumber = $_POST['previous_invoice_number'] ?? '';
+    $fabricDirection = $_POST['fabric_direction'] ?? '';
+    $collarDesign = $_POST['collar_design'] ?? '';
+    $collarHeight = $_POST['collar_height'] ?? '';
+    $collarWidth = $_POST['collar_width'] ?? '';
+    $collarGap = $_POST['collar_gap'] ?? '';
+    $collarMeet = $_POST['collar_meet'] ?? '';
+    $collarLength = $_POST['collar_length'] ?? '';
+    $backLength = $_POST['back_length'] ?? '';
+    $frontLength = $_POST['front_length'] ?? '';
+    $chestFit = $_POST['chest_fit'] ?? '';
+    $chestLoose = $_POST['chest_loose'] ?? '';
+    $waistFit = $_POST['waist_fit'] ?? '';
+    $waistLoose = $_POST['waist_loose'] ?? '';
+    $hipFit = $_POST['hip_fit'] ?? '';
+    $hipLoose = $_POST['hip_loose'] ?? '';
+    $shoulder = $_POST['shoulder'] ?? '';
+    $sleeveLength = $_POST['sleeve_length'] ?? '';
     $armLength = $_POST['arm_length'] ?? null;
     $elbowLength = $_POST['elbow_length'] ?? null;
     $cuffType = $_POST['cuff_type'] ?? '';
     $cuffLength = $_POST['cuff_length'] ?? '';
     $cuffWidth = $_POST['cuff_width'] ?? '';
+    $armholeLength = $_POST['armhole_length'] ?? '';
+    $erect = $_POST['erect'] ?? '';
+    $hunch = $_POST['hunch'] ?? '';
+    $shoulderType = $_POST['shoulder_type'] ?? '';
+    $corpulent = $_POST['corpulent'] ?? '';
+    $frontCutting = $_POST['front_cutting'] ?? '';
+    $placketType = $_POST['placket_type'] ?? '';
+    $topInitial = $_POST['top_initial'] ?? '';
+    $bottomInitial = $_POST['bottom_initial'] ?? '';
+    $cleaningType = $_POST['cleaning_type'] ?? '';
 
     $stmt->bind_param(
         "issssssssssdddddddddddddddddsdddddsdssssss",
         $item_id,
-        $_POST['manufacturer'],
-        $_POST['salesman_name'],
-        $_POST['cutter_name'],
-        $_POST['tailor_name'],
-        $_POST['shirt_type'],
-        $_POST['gender'],
-        $_POST['special_instructions'],
-        $_POST['previous_invoice_number'],
-        $_POST['fabric_direction'],
-        $_POST['collar_design'],
-        $_POST['collar_height'],
-        $_POST['collar_width'],
-        $_POST['collar_gap'],
-        $_POST['collar_meet'],
-        $_POST['collar_length'],
-        $_POST['back_length'],
-        $_POST['front_length'],
-        $_POST['chest_fit'],
-        $_POST['chest_loose'],
-        $_POST['waist_fit'],
-        $_POST['waist_loose'],
-        $_POST['hip_fit'],
-        $_POST['hip_loose'],
-        $_POST['shoulder'],
-        $_POST['sleeve_length'],
+        $manufacturer,
+        $salesmanName,
+        $cutterName,
+        $tailorName,
+        $shirtType,
+        $gender,
+        $specialInstructions,
+        $previousInvoiceNumber,
+        $fabricDirection,
+        $collarDesign,
+        $collarHeight,
+        $collarWidth,
+        $collarGap,
+        $collarMeet,
+        $collarLength,
+        $backLength,
+        $frontLength,
+        $chestFit,
+        $chestLoose,
+        $waistFit,
+        $waistLoose,
+        $hipFit,
+        $hipLoose,
+        $shoulder,
+        $sleeveLength,
         $armLength,
         $elbowLength,
         $cuffType,
         $cuffLength,
         $cuffWidth,
-        $_POST['armhole_length'],
-        $_POST['erect'],
-        $_POST['hunch'],
-        $_POST['shoulder_type'],
-        $_POST['corpulent'],
-        $_POST['front_cutting'],
-        $_POST['placket_type'],
-        $_POST['top_initial'],
-        $_POST['bottom_initial'],
-        $_POST['cleaning_type'],
+        $armholeLength,
+        $erect,
+        $hunch,
+        $shoulderType,
+        $corpulent,
+        $frontCutting,
+        $placketType,
+        $topInitial,
+        $bottomInitial,
+        $cleaningType,
         $drawingFile
     );
 
