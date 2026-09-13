@@ -4,13 +4,13 @@ include('config/db.php');
 
 $statsQuery = mysqli_query($conn, "
     SELECT
-        (SELECT COUNT(*) FROM users) AS total_users,
+        (SELECT COUNT(*) FROM customers) AS total_customers,
         (SELECT COUNT(*) FROM invoices) AS total_invoices,
         (SELECT COALESCE(SUM(total_amount), 0) FROM invoices) AS total_revenue
 ");
 $stats = mysqli_fetch_assoc($statsQuery);
 
-$totalUsers = (int) $stats['total_users'];
+$totalCustomers = (int) $stats['total_customers'];
 $totalInvoices = (int) $stats['total_invoices'];
 $totalRevenue = number_format((float) $stats['total_revenue'], 2);
 ?>
@@ -153,8 +153,8 @@ $totalRevenue = number_format((float) $stats['total_revenue'], 2);
                         <div class="card-body p-3 p-md-4 d-flex align-items-center gap-3">
                             <span class="stat-icon bg-primary-subtle text-primary"><i class="fa-solid fa-users"></i></span>
                             <div>
-                                <p class="text-muted small text-uppercase fw-semibold mb-1">Total Users</p>
-                                <p class="stat-value mb-0"><?php echo number_format($totalUsers); ?></p>
+                                <p class="text-muted small text-uppercase fw-semibold mb-1">Total Customers</p>
+                                <p class="stat-value mb-0"><?php echo number_format($totalCustomers); ?></p>
                             </div>
                         </div>
                     </article>
