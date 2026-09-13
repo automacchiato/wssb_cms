@@ -88,6 +88,10 @@ $query = mysqli_query($conn, $query_str);
             </form>
         </div>
 
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <h4 class="mb-0">Recently Added</h4>
+            <span class="badge bg-primary">Newest first</span>
+        </div>
         <div class="table-container shadow-sm">
             <table class="table table-hover align-middle">
                 <thead class="table-light">
