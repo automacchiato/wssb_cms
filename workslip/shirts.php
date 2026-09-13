@@ -67,6 +67,9 @@ if (isset($_POST['submit'])) {
 
     $armLength = $_POST['arm_length'] ?? null;
     $elbowLength = $_POST['elbow_length'] ?? null;
+    $cuffType = $_POST['cuff_type'] ?? '';
+    $cuffLength = $_POST['cuff_length'] ?? '';
+    $cuffWidth = $_POST['cuff_width'] ?? '';
 
     $stmt->bind_param(
         "issssssssssdddddddddddddddddsdddddsdssssss",
@@ -98,9 +101,9 @@ if (isset($_POST['submit'])) {
         $_POST['sleeve_length'],
         $armLength,
         $elbowLength,
-        $_POST['cuff_type'] ?? '',
-        $_POST['cuff_length'] ?? '',
-        $_POST['cuff_width'] ?? '',
+        $cuffType,
+        $cuffLength,
+        $cuffWidth,
         $_POST['armhole_length'],
         $_POST['erect'],
         $_POST['hunch'],
