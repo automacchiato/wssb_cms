@@ -95,6 +95,11 @@ if (isset($_POST['login'])) {
                             Sign In
                         </button>
                     </form>
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            Don't have an account? <a href="register.php">Register here</a>
+                        </small>
+                    </div>
                 </div>
                 <div class="card-footer bg-transparent border-0 text-center pb-4">
                     <small class="text-muted">&copy; <?php echo date("Y"); ?> WSSB</small>
