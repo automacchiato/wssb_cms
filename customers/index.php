@@ -12,7 +12,7 @@ if ($search != '') {
             customer_email LIKE '%$search%' OR 
             customer_phone LIKE '%$search%'";
 } else {
-    $sql = "SELECT * FROM customers";
+    $sql = "SELECT * FROM customers ORDER BY customer_id DESC";
 }
 
 $result = mysqli_query($conn, $sql);
@@ -57,6 +57,10 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
 
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <h4 class="mb-0">Recently Added</h4>
+            <span class="badge bg-primary">Newest first</span>
+        </div>
         <div class="table-container shadow-sm">
             <table class="table table-hover align-middle" id="customerTable">
                 <thead class="table-light">
