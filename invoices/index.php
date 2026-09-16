@@ -26,7 +26,7 @@ if (count($where_clauses) > 0) {
 
 // Fetch invoices with customer names using a JOIN and the filter
 $query_str = "
-    SELECT invoices.*, customers.customer_name 
+    SELECT invoices.*, customers.customer_name, customers.customer_address
     FROM invoices
     JOIN customers ON invoices.customer_id = customers.customer_id
     $where_sql
@@ -47,9 +47,10 @@ $query = mysqli_query($conn, $query_str);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { background-color: #f8f9fa; }
-        .table-container { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
+        .table-container { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); overflow-x: auto; }
         .invoice-no { font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #0d6efd; }
         .filter-section { background: #fff; border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid #dee2e6; }
+        .customer-address { min-width: 220px; white-space: normal; }
     </style>
 </head>
 
@@ -57,7 +58,7 @@ $query = mysqli_query($conn, $query_str);
 
     <?php $navbarBasePath = '../'; $navbarActive = 'invoices'; include('../includes/navbar.php'); ?>
 
-    <main class="container">
+    <main class="container-fluid px-3 px-md-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2><i class="fa-solid fa-file-invoice-dollar me-2"></i>Invoices</h2>
             <a href="create.php" class="btn btn-success">
@@ -98,6 +99,7 @@ $query = mysqli_query($conn, $query_str);
                     <tr>
                         <th scope="col">Invoice #</th>
                         <th scope="col">Customer</th>
+                        <th scope="col">Address</th>
                         <th scope="col">Date</th>
                         <th scope="col" class="text-end">Total Amount</th>
                         <th scope="col" class="text-center">Action</th>
@@ -113,6 +115,7 @@ $query = mysqli_query($conn, $query_str);
                                     </span>
                                 </td>
                                 <td class="fw-bold"><?php echo htmlspecialchars($row['customer_name']); ?></td>
+                                <td class="customer-address"><?php echo nl2br(htmlspecialchars($row['customer_address'] ?? '')); ?></td>
                                 <td><?php echo date("d M Y", strtotime($row['order_date'])); ?></td>
                                 <td class="text-end fw-bold">RM <?php echo number_format($row['total_amount'], 2); ?></td>
                                 <td class="text-center">
@@ -124,7 +127,7 @@ $query = mysqli_query($conn, $query_str);
                         <?php } ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="text-center text-muted py-4">No matching invoices found.</td>
+                            <td colspan="6" class="text-center text-muted py-4">No matching invoices found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
