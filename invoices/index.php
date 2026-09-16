@@ -34,6 +34,15 @@ $query_str = "
 ";
 
 $query = mysqli_query($conn, $query_str);
+
+$detailColors = [
+    '#e0f2fe',
+    '#dcfce7',
+    '#fef3c7',
+    '#fce7f3',
+    '#ede9fe',
+    '#ffedd5',
+];
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +60,7 @@ $query = mysqli_query($conn, $query_str);
         .invoice-no { font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #0d6efd; }
         .filter-section { background: #fff; border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid #dee2e6; }
         .customer-address { min-width: 220px; white-space: normal; }
+        .invoice-details { min-width: 220px; white-space: normal; }
     </style>
 </head>
 
@@ -100,6 +110,7 @@ $query = mysqli_query($conn, $query_str);
                         <th scope="col">Invoice #</th>
                         <th scope="col">Customer</th>
                         <th scope="col">Address</th>
+                        <th scope="col">Invoice Details</th>
                         <th scope="col">Date</th>
                         <th scope="col" class="text-end">Total Amount</th>
                         <th scope="col" class="text-center">Action</th>
@@ -109,6 +120,14 @@ $query = mysqli_query($conn, $query_str);
                     <?php if (mysqli_num_rows($query) > 0): ?>
                         <?php while ($row = mysqli_fetch_assoc($query)) { ?>
                             <tr>
+                                <?php
+                                $invoiceDetails = trim((string) ($row['invoice_details'] ?? ''));
+                                $detailStyle = '';
+                                if ($invoiceDetails !== '') {
+                                    $detailColor = $detailColors[abs(crc32($invoiceDetails)) % count($detailColors)];
+                                    $detailStyle = ' style="background-color: ' . $detailColor . ';"';
+                                }
+                                ?>
                                 <td>
                                     <span class="badge bg-light text-dark border invoice-no">
                                         <?php echo htmlspecialchars($row['invoice_number']); ?>
@@ -116,6 +135,9 @@ $query = mysqli_query($conn, $query_str);
                                 </td>
                                 <td class="fw-bold"><?php echo htmlspecialchars($row['customer_name']); ?></td>
                                 <td class="customer-address"><?php echo nl2br(htmlspecialchars($row['customer_address'] ?? '')); ?></td>
+                                <td class="invoice-details"<?php echo $detailStyle; ?>>
+                                    <?php echo nl2br(htmlspecialchars($invoiceDetails)); ?>
+                                </td>
                                 <td><?php echo date("d M Y", strtotime($row['order_date'])); ?></td>
                                 <td class="text-end fw-bold">RM <?php echo number_format($row['total_amount'], 2); ?></td>
                                 <td class="text-center">
@@ -127,7 +149,7 @@ $query = mysqli_query($conn, $query_str);
                         <?php } ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" class="text-center text-muted py-4">No matching invoices found.</td>
+                            <td colspan="7" class="text-center text-muted py-4">No matching invoices found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
