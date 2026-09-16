@@ -53,6 +53,7 @@ $detailColors = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoices - WSSB CMS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { background-color: #f8f9fa; }
@@ -104,16 +105,27 @@ $detailColors = [
             <span class="badge bg-primary">Newest first</span>
         </div>
         <div class="table-container shadow-sm">
-            <table class="table table-hover align-middle">
+            <table
+                id="invoiceTable"
+                class="table table-hover align-middle"
+                data-toggle="table"
+                data-search="true"
+                data-search-align="left"
+                data-pagination="true"
+                data-page-size="10"
+                data-page-list="[10, 25, 50, all]"
+                data-show-columns="true"
+                data-filter-control="true"
+                data-sticky-header="true">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">Invoice #</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Invoice Details</th>
-                        <th scope="col">Date</th>
-                        <th scope="col" class="text-end">Total Amount</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" data-field="invoice_number" data-sortable="true" data-filter-control="input">Invoice #</th>
+                        <th scope="col" data-field="customer_name" data-sortable="true" data-filter-control="input">Customer</th>
+                        <th scope="col" data-field="customer_address" data-sortable="true" data-filter-control="input">Address</th>
+                        <th scope="col" data-field="invoice_details" data-sortable="true" data-filter-control="input">Invoice Details</th>
+                        <th scope="col" data-field="order_date" data-sortable="true" data-filter-control="input">Date</th>
+                        <th scope="col" data-field="total_amount" data-sortable="true" data-filter-control="input" class="text-end">Total Amount</th>
+                        <th scope="col" data-field="action" data-switchable="false" class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -158,5 +170,8 @@ $detailColors = [
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 </body>
 </html>
