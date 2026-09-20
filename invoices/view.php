@@ -161,8 +161,8 @@ $items = mysqli_query($conn, "SELECT * FROM invoice_items WHERE invoice_id=$id")
             $link = "shirts.php";
         } elseif (strpos($type, 'trouser') !== false) {
             $link = "trousers.php";
-        } elseif (strpos($type, 'jacket') !== false) {
-            $link = "jacket.php";
+        } elseif (strpos($type, 'jacket') !== false || strpos($type, 'jubah') !== false) {
+            $link = strpos($type, 'jubah') !== false ? "jubah.php" : "jacket.php";
         } elseif (strpos($type, 'vest') !== false) {
             $link = "vest.php";
         }

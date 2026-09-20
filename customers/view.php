@@ -104,7 +104,8 @@ $invoices = mysqli_query($conn, "SELECT * FROM invoices WHERE customer_id = $cus
             'trousers'    => 'trousers.php',
             'pants'       => 'trousers.php', // Alias
             'jacket'      => 'jacket.php',
-            'coat'        => 'jacket.php'  // Alias
+            'coat'        => 'jacket.php',  // Alias
+            'jubah'       => 'jubah.php'
         ];
 
         // Determine if we have a direct match
@@ -136,6 +137,7 @@ $invoices = mysqli_query($conn, "SELECT * FROM invoices WHERE customer_id = $cus
                                 <li><a class="dropdown-item small" href="../workslip/shirts.php?item_id=<?php echo $item_id; ?>">Shirt</a></li>
                                 <li><a class="dropdown-item small" href="../workslip/trousers.php?item_id=<?php echo $item_id; ?>">Trousers</a></li>
                                 <li><a class="dropdown-item small" href="../workslip/jacket.php?item_id=<?php echo $item_id; ?>">Jacket</a></li>
+                                <li><a class="dropdown-item small" href="../workslip/jubah.php?item_id=<?php echo $item_id; ?>">Jubah</a></li>
                             </ul>
                         </div>
                     <?php endif; ?>

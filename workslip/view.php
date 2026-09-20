@@ -29,6 +29,9 @@ foreach ($tables as $table => $label) {
     $q = mysqli_query($conn, "SELECT * FROM $table WHERE item_id = $item_id");
     if (mysqli_num_rows($q) > 0) {
         $type = $label;
+        if (strtolower($data['item_type']) === 'jubah') {
+            $type = 'Jubah';
+        }
         $workslip = mysqli_fetch_assoc($q);
         break;
     }

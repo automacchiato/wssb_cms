@@ -121,6 +121,7 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY customer_name
                                             <option value="Shirt">Shirt</option>
                                             <option value="Trousers">Trousers</option>
                                             <option value="Jacket">Jacket</option>
+                                            <option value="Jubah">Jubah</option>
                                             <option value="Vest">Vest</option>
                                         </select>
                                     </div>
@@ -185,6 +186,7 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY customer_name
                         <option value="Shirt">Shirt</option>
                         <option value="Trousers">Trousers</option>
                         <option value="Jacket">Jacket</option>
+                        <option value="Jubah">Jubah</option>
                         <option value="Vest">Vest</option>
                     </select>
                 </div>
