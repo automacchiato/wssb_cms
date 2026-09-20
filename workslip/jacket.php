@@ -61,37 +61,67 @@ if (isset($_POST['submit'])) {
     $stmt = $conn->prepare("INSERT INTO $workslipTable
                 (item_id, manufacturer, salesman_name, cutter_name, tailor_name, gender, special_instructions, previous_invoice_number, back_length, front_length, chest_fit, chest_loose, waist_fit, waist_loose, hip_fit, hip_loose, shoulder, sleeve_length, cuff_length, cross_back, cross_front, vest_length, armhole, back_neck_to_waist, back_neck_to_front_waist, sleeve_button, top_initial, bottom_initial, cleaning_type, drawing)
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+    $manufacturer = $_POST['manufacturer'] ?? '';
+    $salesmanName = $_POST['salesman_name'] ?? '';
+    $cutterName = $_POST['cutter_name'] ?? '';
+    $tailorName = $_POST['tailor_name'] ?? '';
+    $gender = $_POST['gender'] ?? '';
+    $specialInstructions = $_POST['special_instructions'] ?? '';
+    $previousInvoiceNumber = $_POST['previous_invoice_number'] ?? '';
+    $backLength = $_POST['back_length'] ?? null;
+    $frontLength = $_POST['front_length'] ?? null;
+    $chestFit = $_POST['chest_fit'] ?? null;
+    $chestLoose = $_POST['chest_loose'] ?? null;
+    $waistFit = $_POST['waist_fit'] ?? null;
+    $waistLoose = $_POST['waist_loose'] ?? null;
+    $hipFit = $_POST['hip_fit'] ?? null;
+    $hipLoose = $_POST['hip_loose'] ?? null;
+    $shoulder = $_POST['shoulder'] ?? null;
+    $sleeveLength = $_POST['sleeve_length'] ?? null;
+    $cuffLength = $_POST['cuff_length'] ?? null;
+    $crossBack = $_POST['cross_back'] ?? null;
+    $crossFront = $_POST['cross_front'] ?? null;
+    $vestLength = $_POST['vest_length'] ?? null;
+    $armhole = $_POST['armhole'] ?? null;
+    $backNeckToWaist = $_POST['back_neck_to_waist'] ?? null;
+    $backNeckToFrontWaist = $_POST['back_neck_to_front_waist'] ?? null;
+    $sleeveButton = $_POST['sleeve_button'] ?? '';
+    $topInitial = $_POST['top_initial'] ?? '';
+    $bottomInitial = $_POST['bottom_initial'] ?? '';
+    $cleaningType = $_POST['cleaning_type'] ?? '';
+
     $stmt->bind_param(
         "isssssssdddddddddddddddddissss",
         $item_id,
-        $_POST['manufacturer'],
-        $_POST['salesman_name'],
-        $_POST['cutter_name'],
-        $_POST['tailor_name'],
-        $_POST['gender'],
-        $_POST['special_instructions'],
-        $_POST['previous_invoice_number'],
-        $_POST['back_length'],
-        $_POST['front_length'],
-        $_POST['chest_fit'],
-        $_POST['chest_loose'],
-        $_POST['waist_fit'],
-        $_POST['waist_loose'],
-        $_POST['hip_fit'],
-        $_POST['hip_loose'],
-        $_POST['shoulder'],
-        $_POST['sleeve_length'],
-        $_POST['cuff_length'],
-        $_POST['cross_back'],
-        $_POST['cross_front'],
-        $_POST['vest_length'],
-        $_POST['armhole'],
-        $_POST['back_neck_to_waist'],
-        $_POST['back_neck_to_front_waist'],
-        $_POST['sleeve_button'],
-        $_POST['top_initial'],
-        $_POST['bottom_initial'],
-        $_POST['cleaning_type'],
+        $manufacturer,
+        $salesmanName,
+        $cutterName,
+        $tailorName,
+        $gender,
+        $specialInstructions,
+        $previousInvoiceNumber,
+        $backLength,
+        $frontLength,
+        $chestFit,
+        $chestLoose,
+        $waistFit,
+        $waistLoose,
+        $hipFit,
+        $hipLoose,
+        $shoulder,
+        $sleeveLength,
+        $cuffLength,
+        $crossBack,
+        $crossFront,
+        $vestLength,
+        $armhole,
+        $backNeckToWaist,
+        $backNeckToFrontWaist,
+        $sleeveButton,
+        $topInitial,
+        $bottomInitial,
+        $cleaningType,
         $drawingFile
     );
     if ($stmt->execute()) {
