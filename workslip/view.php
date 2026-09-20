@@ -23,15 +23,12 @@ if (!$data) {
 $type = "Unknown";
 $workslip = null;
 
-$tables = ['workslip_baju_melayu' => 'Baju Melayu', 'workslip_shirts' => 'Shirt', 'workslip_trousers' => 'Trouser', 'workslip_jacket' => 'Jacket'];
+$tables = ['workslip_baju_melayu' => 'Baju Melayu', 'workslip_shirts' => 'Shirt', 'workslip_trousers' => 'Trouser', 'workslip_jacket' => 'Jacket', 'workslip_jubah' => 'Jubah'];
 
 foreach ($tables as $table => $label) {
     $q = mysqli_query($conn, "SELECT * FROM $table WHERE item_id = $item_id");
     if (mysqli_num_rows($q) > 0) {
         $type = $label;
-        if (strtolower($data['item_type']) === 'jubah') {
-            $type = 'Jubah';
-        }
         $workslip = mysqli_fetch_assoc($q);
         break;
     }

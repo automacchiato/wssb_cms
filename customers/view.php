@@ -94,8 +94,9 @@ $invoices = mysqli_query($conn, "SELECT * FROM invoices WHERE customer_id = $cus
         $shirt = mysqli_num_rows(mysqli_query($conn, "SELECT 1 FROM workslip_shirts WHERE item_id=$item_id"));
         $trouser = mysqli_num_rows(mysqli_query($conn, "SELECT 1 FROM workslip_trousers WHERE item_id=$item_id"));
         $jacket = mysqli_num_rows(mysqli_query($conn, "SELECT 1 FROM workslip_jacket WHERE item_id=$item_id"));
+        $jubah = mysqli_num_rows(mysqli_query($conn, "SELECT 1 FROM workslip_jubah WHERE item_id=$item_id"));
         
-        $hasWorkslip = ($bm || $shirt || $trouser || $jacket);
+        $hasWorkslip = ($bm || $shirt || $trouser || $jacket || $jubah);
 
         // 2. Map item types to your PHP files
         $workslip_map = [
