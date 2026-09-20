@@ -48,7 +48,11 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY customer_name ASC");
+$customers = mysqli_query($conn, "SELECT customer_id, customer_name, customer_phone FROM customers ORDER BY customer_name ASC");
+$customerOptions = [];
+while ($customer = mysqli_fetch_assoc($customers)) {
+    $customerOptions[] = $customer;
+}
 ?>
 
 <!DOCTYPE html>
@@ -89,12 +93,14 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY customer_name
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label fw-bold small">Customer</label>
-                                <select name="customer_id" class="form-select" required>
-                                    <option value="">-- Choose Customer --</option>
-                                    <?php while($c = mysqli_fetch_assoc($customers)) { ?>
-                                        <option value="<?php echo $c['customer_id']; ?>"><?php echo htmlspecialchars($c['customer_name']); ?></option>
-                                    <?php } ?>
-                                </select>
+                                <input type="text" id="customerSearch" class="form-control" list="customerOptions" placeholder="Search customer name..." autocomplete="off" required>
+                                <input type="hidden" name="customer_id" id="customerId">
+                                <datalist id="customerOptions">
+                                    <?php foreach ($customerOptions as $customer): ?>
+                                        <option value="<?php echo htmlspecialchars($customer['customer_name']); ?>"><?php echo htmlspecialchars($customer['customer_phone']); ?></option>
+                                    <?php endforeach; ?>
+                                </datalist>
+                                <div id="customerHelp" class="form-text">Select a customer from the search suggestions.</div>
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label fw-bold small">Order Date</label>
@@ -237,6 +243,25 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY customer_name
     invoiceNumberInput.addEventListener('input', function() {
         const digits = this.value.replace(/\D/g, '').slice(0, 4);
         this.value = `MK${digits}`;
+    });
+
+    const customerSearch = document.getElementById('customerSearch');
+    const customerId = document.getElementById('customerId');
+    const customers = <?php echo json_encode($customerOptions, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
+
+    function syncCustomerId() {
+        const selectedCustomer = customers.find(customer => customer.customer_name === customerSearch.value);
+        customerId.value = selectedCustomer ? selectedCustomer.customer_id : '';
+        customerSearch.setCustomValidity(selectedCustomer ? '' : 'Select a customer from the suggestions.');
+    }
+
+    customerSearch.addEventListener('input', syncCustomerId);
+    document.getElementById('invoiceForm').addEventListener('submit', function(event) {
+        syncCustomerId();
+        if (!customerId.value) {
+            event.preventDefault();
+            customerSearch.reportValidity();
+        }
     });
 
     attachCalcEvents();
