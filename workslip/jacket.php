@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 include('../auth/check.php');
 include('../config/db.php');
 
+$workslipLabel = $workslipLabel ?? 'Jacket';
 $item_id = isset($_GET['item_id']) ? mysqli_real_escape_string($conn, $_GET['item_id']) : 0;
 
 // Fetch Item and Customer details
@@ -34,7 +35,7 @@ if (isset($_POST['submit'])) {
 
         $data = base64_decode($img);
 
-        $fileName = "shirt_canvas_" . time() . "_" . $item_id . ".png";
+        $fileName = strtolower($workslipLabel) . "_canvas_" . time() . "_" . $item_id . ".png";
         $filePath = '../uploads/drawings/' . $fileName;
 
         file_put_contents($filePath, $data);
@@ -48,7 +49,7 @@ if (isset($_POST['submit'])) {
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
         $fileExt = pathinfo($_FILES['drawing']['name'], PATHINFO_EXTENSION);
-        $fileName = "jacket_" . time() . "_" . $item_id . "." . $fileExt;
+        $fileName = strtolower($workslipLabel) . "_" . time() . "_" . $item_id . "." . $fileExt;
         $targetPath = $uploadDir . $fileName;
 
         if (move_uploaded_file($_FILES['drawing']['tmp_name'], $targetPath)) {
@@ -107,7 +108,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jacket Workslip - WSSB CMS</title>
+    <title><?php echo htmlspecialchars($workslipLabel); ?> Workslip - WSSB CMS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -185,7 +186,7 @@ if (isset($_POST['submit'])) {
 
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h2 class="fw-bold mb-0">Jacket Measurement</h2>
+                    <h2 class="fw-bold mb-0"><?php echo htmlspecialchars($workslipLabel); ?> Measurement</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="../customers/view.php?id=<?php echo $details['customer_id']; ?>"><?php echo htmlspecialchars($details['customer_name']); ?></a></li>

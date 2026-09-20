@@ -749,6 +749,7 @@ while ($row = $items->fetch_assoc()) {
             $pdf->Ln(200);
             break;
 
+        case 'JUBAH':
         case 'JACKET':
             $sql = "SELECT * FROM workslip_jacket WHERE item_id = $item_id";
             $work = $conn->query($sql)->fetch_assoc();
