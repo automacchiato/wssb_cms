@@ -751,7 +751,8 @@ while ($row = $items->fetch_assoc()) {
 
         case 'JUBAH':
         case 'JACKET':
-            $sql = "SELECT * FROM workslip_jacket WHERE item_id = $item_id";
+            $workslipTable = strtoupper($row['item_type']) === 'JUBAH' ? 'workslip_jubah' : 'workslip_jacket';
+            $sql = "SELECT * FROM $workslipTable WHERE item_id = $item_id";
             $work = $conn->query($sql)->fetch_assoc();
 
             //Line 1

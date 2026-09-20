@@ -121,7 +121,7 @@ $items = mysqli_query($conn, "SELECT * FROM invoice_items WHERE invoice_id=$id")
                     
                     // Workslip detection
                     $hasWorkslip = false;
-                    $ws_checks = ['workslip_baju_melayu', 'workslip_shirts', 'workslip_trousers', 'workslip_jacket'];
+                    $ws_checks = ['workslip_baju_melayu', 'workslip_shirts', 'workslip_trousers', 'workslip_jacket', 'workslip_jubah'];
                     foreach($ws_checks as $table) {
                         if(mysqli_num_rows(mysqli_query($conn, "SELECT 1 FROM $table WHERE item_id=$item_id"))) {
                             $hasWorkslip = true;

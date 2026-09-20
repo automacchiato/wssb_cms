@@ -8,6 +8,7 @@ include('../auth/check.php');
 include('../config/db.php');
 
 $workslipLabel = $workslipLabel ?? 'Jacket';
+$workslipTable = $workslipTable ?? 'workslip_jacket';
 $item_id = isset($_GET['item_id']) ? mysqli_real_escape_string($conn, $_GET['item_id']) : 0;
 
 // Fetch Item and Customer details
@@ -57,7 +58,7 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    $stmt = $conn->prepare("INSERT INTO workslip_jacket
+    $stmt = $conn->prepare("INSERT INTO $workslipTable
                 (item_id, manufacturer, salesman_name, cutter_name, tailor_name, gender, special_instructions, previous_invoice_number, back_length, front_length, chest_fit, chest_loose, waist_fit, waist_loose, hip_fit, hip_loose, shoulder, sleeve_length, cuff_length, cross_back, cross_front, vest_length, armhole, back_neck_to_waist, back_neck_to_front_waist, sleeve_button, top_initial, bottom_initial, cleaning_type, drawing)
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     $stmt->bind_param(
