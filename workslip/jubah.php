@@ -1,3 +1,5 @@
 <?php
+// Jubah uses the shared jacket-style measurement form so its layout stays
+// consistent with the other standardized workslips.
 $workslipLabel = 'Jubah';
-include('jacket.php');
+require_once __DIR__ . '/jacket.php';
