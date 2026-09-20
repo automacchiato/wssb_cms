@@ -26,6 +26,7 @@ $result = mysqli_query($conn, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Customers - WSSB CMS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { background-color: #f8f9fa; }
@@ -62,13 +63,24 @@ $result = mysqli_query($conn, $sql);
             <span class="badge bg-primary">Newest first</span>
         </div>
         <div class="table-container shadow-sm">
-            <table class="table table-hover align-middle" id="customerTable">
+            <table
+                id="customerTable"
+                class="table table-hover align-middle"
+                data-toggle="table"
+                data-search="true"
+                data-search-align="left"
+                data-pagination="true"
+                data-page-size="10"
+                data-page-list="[10, 25, 50, all]"
+                data-show-columns="true"
+                data-filter-control="true"
+                data-sticky-header="true">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email Address</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col" class="text-center">Actions</th>
+                        <th scope="col" data-field="customer_name" data-sortable="true" data-filter-control="input">Name</th>
+                        <th scope="col" data-field="customer_email" data-sortable="true" data-filter-control="input">Email Address</th>
+                        <th scope="col" data-field="customer_phone" data-sortable="true" data-filter-control="input">Phone Number</th>
+                        <th scope="col" data-field="action" data-switchable="false" class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,5 +110,8 @@ $result = mysqli_query($conn, $sql);
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 </body>
 </html>
